@@ -131,20 +131,20 @@ projects).
 * `development `: la configuration development est conçue pour accélérer le processus de développement en désactivant
   certaines optimisations utilisées en production.
 * `optimization` : false - Désactive l'optimisation du code (comme la minification ou le tree-shaking).
-    * `extractLicenses` : false - N'extrait pas les licences des bibliothèques utilisées, pour réduire les temps de
+  * `extractLicenses` : false - N'extrait pas les licences des bibliothèques utilisées, pour réduire les temps de
   #### compilation.
-    * `sourceMap` : true - Active les fichiers de cartes de sources pour faciliter le débogage dans le navigateur.
-    * `defaultConfiguration` : Définit production comme configuration par défaut.
+  * `sourceMap` : true - Active les fichiers de cartes de sources pour faciliter le débogage dans le navigateur.
+  * `defaultConfiguration` : Définit production comme configuration par défaut.
   #### Serve
-    * `builder` : Utilise @angular-devkit/build-angular:dev-server pour lancer le serveur de développement.
-    * `configurations` : Définit les cibles de build à utiliser pour les modes production et développement.
-    * `defaultConfiguration`: Mode development par défaut.
+  * `builder` : Utilise @angular-devkit/build-angular:dev-server pour lancer le serveur de développement.
+  * `configurations` : Définit les cibles de build à utiliser pour les modes production et développement.
+  * `defaultConfiguration`: Mode development par défaut.
   #### Extract-i18n
-    * `Utilise` @angular-devkit/build-angular:extract-i18n pour extraire les messages d'internationalisation.
+  * `Utilise` @angular-devkit/build-angular:extract-i18n pour extraire les messages d'internationalisation.
   #### Test
-    * `builder` : Utilise @angular-devkit/build-angular: karma pour exécuter les tests avec Karma.
-    * `options` : Inclut zone. js pour le test et les polyfills nécessaires (zone. js/testing).
-    * Réutilise les mêmes assets, styles et scripts que pour le build.
+  * `builder` : Utilise @angular-devkit/build-angular: karma pour exécuter les tests avec Karma.
+  * `options` : Inclut zone. js pour le test et les polyfills nécessaires (zone. js/testing).
+  * Réutilise les mêmes assets, styles et scripts que pour le build.
 
 ### Generer un composant basique
 
@@ -162,6 +162,13 @@ ng g c <nom-du-composant>
 ```
 
 ANhular va creer 4 fichiers le fichier de test, le fichier css, le fichier html et le fichier de logique
+
+#### lier le composant et le template :
+
+* **Interpolation ({{}})** : affiche des expressions ou des variables du composant dans le template HTML .
+* **Liaison de propriété ou property binding ([])**: lie une propriété du composant à un attribut d'un élément HTML.
+* **Liaison d'événement ou event binding (())** : lie un événement utilisateur à une méthode du composant.
+* **Double liaison ou two-way binding ([()])**: combine les deux types de liaison pour synchroniser les données entre le composant et le template.
 
 ### Générer un composant SFC (Single FIle Component)
 
@@ -200,4 +207,40 @@ la création dvient alors
 
 ```
 ng g cd c nom_du_composant
+```
+
+### Déclaration des variables
+
+```
+ import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dyma',
+  template: `
+    <ul>
+      <li>{{ title + nombre }}</li>
+      <li>{{ isLoggedin }}</li>
+      <li>{{ nombre }}</li>
+      <li>{{ name }}</li>
+      <li>{{ 1 + 1 }}</li>
+      <li>{{ isLoggedin ? 'connecté' : 'non connecté' }}</li>
+      <li>{{ displayName() }}</li>
+      <li>{{ user.name }}</li>
+    </ul>
+  `,
+})
+export class DymaComponent {
+  title = 'Dyma';
+  isLoggedin = true;
+  nombre = 42;
+  name: string | undefined;
+  user = {
+    name: 'Jean',
+  };
+
+  displayName() {
+    return 'hello';
+  }
+}
+
 ```
