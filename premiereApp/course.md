@@ -351,4 +351,41 @@ export class DymaComponent {
 }
 ```
 
+### Host Binding
+
+Permet de manipuler directement dans le composant et pas dans le parent :
+
+* les attributs sur l'élément hote
+* des classes css ajoutées ou supprimées dynamiquement
+* des propriété du DOM de l'hote
+* des évenements à ecouter
+
+exemple :
+
+```
+@Component({
+  selector: 'app-exemple',
+  host: {
+    'role': 'button', // Attribut statique
+    '[attr.aria-label]': 'label', // Attribut lié à une propriété
+    '[class.active]': 'isActive()', // Classe CSS conditionnelle
+    '[disabled]': 'isDisabled', // Propriété DOM
+    '(click)': 'onClick($event)', // Événement DOM
+  },
+  template: `<p>Contenu du composant</p>`,
+})
+export class ExempleComponent {
+  label: string = 'Exemple';
+  isDisabled: boolean = false;
+
+  isActive() {
+    return !this.isDisabled;
+  }
+
+  onClick(event: Event) {
+    console.log('Clique détecté !', event);
+  }
+}
+```
+
 
