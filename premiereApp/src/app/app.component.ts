@@ -4,10 +4,11 @@ import {DymaComponent} from './dyma/dyma.component';
 import {DymaSFCComponent} from './dyma-sfc.component';
 import {PropertyBindingComponent} from './binding/property-binding.component';
 import {EventBindingComponent} from './binding/event-binding.component';
+import {DoubleDataBindingComponent} from './binding/double-data-binding.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, DymaComponent, DymaSFCComponent, PropertyBindingComponent, EventBindingComponent],
+  imports: [RouterOutlet, DymaComponent, DymaSFCComponent, PropertyBindingComponent, EventBindingComponent, DoubleDataBindingComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
