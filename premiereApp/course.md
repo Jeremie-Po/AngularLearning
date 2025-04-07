@@ -244,3 +244,64 @@ export class DymaComponent {
 }
 
 ```
+
+### propriety binding (liaison de propriété) :
+
+permet de lié dynamiquement une varaibel à une propriété :
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dyma',
+  template: `<input [type]="inputType" />`,
+})
+export class DymaComponent {
+  inputType = 'date';
+
+  constructor() {
+    setTimeout(() => {
+      this.inputType = 'number';
+    }, 3000);
+  }
+}
+```
+
+### Event binding (liaison d'évenement)
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dyma',
+  template: `
+    <div
+      (mouseenter)="displayHi()"
+      (click)="exemple($event, 'hi')"
+      class="square">
+      {{ title }}
+    </div>
+  `,
+  styles: [`
+    .square {
+      height: 200px;
+      width: 200px;
+      background-color: red;
+    }
+  `]
+})
+export class DymaComponent {
+  title = '';
+
+  exemple(event: MouseEvent, title: string) {
+    console.log(event);
+    console.log(title);
+  }
+
+  displayHi() {
+    this.title = 'Hi';
+  }
+}
+```
+
+
