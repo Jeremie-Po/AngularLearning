@@ -304,4 +304,51 @@ export class DymaComponent {
 }
 ```
 
+### two way data binding
+
+permet de gérer les input :
+
+```
+//exemple sans la directive ngModel :
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dyma',
+  template: `
+    <input type="text" (input)="updateTitle($event)" />
+    <br />
+    <p>{{ title }}</p>
+  `,
+})
+export class DymaComponent {
+  title = '';
+
+  updateTitle(event: Event) {
+    const { value } = event.target as HTMLInputElement;
+    this.title = value;
+  }
+}
+```
+
+```
+//exemple avec la directive ngModel
+
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-dyma',
+  imports: [FormsModule],
+  template: `
+    <input type="text" [(ngModel)]="title" />
+    <br />
+    <p>{{ title }}</p>
+  `,
+})
+export class DymaComponent {
+  title = 'Bonjour';
+}
+```
+
 
