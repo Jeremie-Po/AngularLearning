@@ -145,3 +145,59 @@ projects).
     * `builder` : Utilise @angular-devkit/build-angular: karma pour exécuter les tests avec Karma.
     * `options` : Inclut zone. js pour le test et les polyfills nécessaires (zone. js/testing).
     * Réutilise les mêmes assets, styles et scripts que pour le build.
+
+### Generer un composant basique
+
+* aller dans le dossier ou le composant va être crée puis :
+
+```
+ng generate component
+
+//ou
+
+ng generate component nom_du_composant 
+
+//ou
+ng g c <nom-du-composant>
+```
+
+ANhular va creer 4 fichiers le fichier de test, le fichier css, le fichier html et le fichier de logique
+
+### Générer un composant SFC (Single FIle Component)
+
+il permet de regrouper dans un fichier html, css et logique.   
+Utilisé pour des composant court ( moins d e200 lignes). On aura tendance à utiliser le création de composant basique
+lorsqu'on a un gros composant.  
+pour le générer :
+
+```
+ng g c nom_du_composant --inline-template
+
+//ou
+
+ng g c nom_du_composant -t -s --flat --skip-tests
+
+```
+
+Cela créera 1 composant avec le style css (-s) et le template (-t) directement dans le fichier sans créer de dossier (
+--flat) et sans fichier de tests
+
+* pour alléger la création de composants on peut prédéfinir les option de création du component dans le fichier
+  `angular.json` :
+
+```
+ "schematics": {
+        "@schematics/angular:component": {
+          "flat": true,
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "skipTests": true
+        }
+      },
+```
+
+la création dvient alors
+
+```
+ng g cd c nom_du_composant
+```
