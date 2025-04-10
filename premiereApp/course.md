@@ -388,4 +388,214 @@ export class ExempleComponent {
 }
 ```
 
+### structural directives
+
+* if
+  exemple simple
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dyma',
+  template: `
+    @if (user.address.city; as city) {
+      <h1>Dans une ville : {{ city }}</h1>
+    } @else {
+      <h1>error</h1>
+    }
+  `,
+  styles: ``,
+})
+export class DymaComponent {
+  user = {
+    address: {
+      city: 'Paris',
+    },
+  };
+}
+```
+
+Exemple complexe
+
+```
+@if (temperature > 30) {
+  <p>Il fait chaud aujourd'hui : {{ temperature }}°C</p>
+} @else-if (temperature < 10) {
+  <p>Il fait froid aujourd'hui : {{ temperature }}°C</p>
+} @else {
+  <p>La température est modérée : {{ temperature }}°C</p>
+}
+```
+
+exemple avec un référencement d'une variable
+
+```
+@if (user.profile.settings.startDate; as startDate) {
+  <p>La date de début est : {{ startDate }}</p>
+}
+```
+
+* Switch
+
+```
+@switch (jourSemaine) {
+  @case ('lundi') {
+    <p>Nous sommes lundi, début de la semaine !</p>
+  }
+  @case ('mercredi') {
+    <p>C’est mercredi, milieu de la semaine !</p>
+  }
+  @case ('vendredi') {
+    <p>Enfin vendredi, c'est presque le week-end !</p>
+  }
+  @default {
+    <p>Profitez de votre journée !</p>
+  }
+}
+```
+
+* For
+  La directive track aide Angular à maintenir une correspondance entre les données et les éléments du DOM.  
+  Cela réduit les modifications inutiles lorsque les données changent et permet à Angular de mettre à jours uniquement les éléments concernés.
+
+Dans cet exemple la propréité track utilise etudiant.matricule comme identifiant unique pour otpimiser les performances.
+
+```
+@for (etudiant of etudiants; track etudiant.matricule) {
+  <div>
+    <h3>Étudiant : {{ etudiant.nom }}</h3>
+    <p>Moyenne : {{ etudiant.moyenne }}/20</p>
+  </div>
+}
+```
+
+Alternative pour Track :
+
+```
+@for (categorie of categories; track $index) {
+  <p>{{ categorie }}</p>
+}
+```
+
+VAriables contextuelles :   
+On peut apporter un comportement ou un style spécifique en fonciton du contexte :
+
+```
+$count : nbre total d'élément dans la collection
+$index : index de l'élément en cours
+$first : true si l'élément est en primier
+$last : true si l'element est le dernier
+$even : true si l'élément est pair
+$odd : true si l'index est impair
+```
+
+On peut aussi utiliser '@empty' dans le cas ou la collection est vide :
+
+````
+@for (produit of produits; track produit.reference) {
+  <li>{{ produit.nom }}</li>
+} @empty {
+  <li>Aucun produit disponible en stock.</li>
+}
+````
+
+exemple d'utilisation :
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dyma',
+  template: `
+    <ul>
+      @for (user of users; track $index) {
+        <li [class.first]="$first" [class.last]="$last">
+          {{ user }} | index: {{ $index }} | count: {{ $count }} | first: {{ $first }} | last: {{ $last }} | even: {{ $even }} | odd: {{ $odd }}
+        </li>
+      } @empty {
+        <p>Aucun user</p>
+      }
+    </ul>
+  `,
+  styles: `
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      border: 1px solid #888;
+      border-bottom: 0;
+    }
+
+    .first {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+
+    .last {
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      border-bottom: 1px solid #888;
+    }
+
+    .even {
+      background-color: #999;
+    }
+  `,
+})
+export class DymaComponent {
+  users = ['Jean'];
+}
+```
+
+* variable de références :
+
+#### let
+
+possibilité de déclarer directement une variable dans angular qui sera utilisée dans un contexte template.  
+Elle est utilisé pour rendre le code plus lisible (comme le AS)
+
+#### reference
+
+déclarée dans le template html, elle permet d'accederà un DOM ou à un composant enfant depuis le template.  
+exemple let :
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dyma',
+  template: `
+    @let a = b;
+    <button (click)="b = b + 1">+1</button>
+    <h1>{{ a }}</h1>
+  `,
+  styles: ``,
+})
+export class DymaComponent {
+  b = 0;
+}
+```
+
+exemple reference :
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dyma',
+  template: `
+    <button (click)="test(moninput)">test</button>
+    <input type="text" #moninput />
+  `,
+  styles: ``,
+})
+export class DymaComponent {
+  test(moninput: HTMLInputElement) {
+    console.log(moninput.value);
+  }
+}
+```
 
