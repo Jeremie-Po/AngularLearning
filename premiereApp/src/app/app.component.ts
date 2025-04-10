@@ -8,6 +8,7 @@ import {DoubleDataBindingComponent} from './binding/double-data-binding.componen
 import {HostBindingComponent} from './binding/host-binding.component';
 import {IfComponent} from './structuralDirective/if.component';
 import {SwitchComponent} from './structuralDirective/switch.component';
+import {ForComponent} from './structuralDirective/for.component';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ import {SwitchComponent} from './structuralDirective/switch.component';
     HostBindingComponent,
     IfComponent,
     SwitchComponent,
+    ForComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
