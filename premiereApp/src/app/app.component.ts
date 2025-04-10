@@ -7,6 +7,7 @@ import {EventBindingComponent} from './binding/event-binding.component';
 import {DoubleDataBindingComponent} from './binding/double-data-binding.component';
 import {HostBindingComponent} from './binding/host-binding.component';
 import {IfComponent} from './structuralDirective/if.component';
+import {SwitchComponent} from './structuralDirective/switch.component';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import {IfComponent} from './structuralDirective/if.component';
     DoubleDataBindingComponent,
     HostBindingComponent,
     IfComponent,
+    SwitchComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
