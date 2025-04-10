@@ -9,6 +9,7 @@ import {HostBindingComponent} from './binding/host-binding.component';
 import {IfComponent} from './structuralDirective/if.component';
 import {SwitchComponent} from './structuralDirective/switch.component';
 import {ForComponent} from './structuralDirective/for.component';
+import {LetComponent} from './structuralDirective/let.component';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ import {ForComponent} from './structuralDirective/for.component';
     IfComponent,
     SwitchComponent,
     ForComponent,
+    LetComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
