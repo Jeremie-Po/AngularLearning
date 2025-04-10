@@ -6,6 +6,7 @@ import {PropertyBindingComponent} from './binding/property-binding.component';
 import {EventBindingComponent} from './binding/event-binding.component';
 import {DoubleDataBindingComponent} from './binding/double-data-binding.component';
 import {HostBindingComponent} from './binding/host-binding.component';
+import {IfComponent} from './structuralDirective/if.component';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ import {HostBindingComponent} from './binding/host-binding.component';
     EventBindingComponent,
     DoubleDataBindingComponent,
     HostBindingComponent,
+    IfComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
