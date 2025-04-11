@@ -14,6 +14,7 @@ import {SignalsComponent} from './signals/signals.component';
 import {ComputedComponent} from './signals/computed.component';
 import {EffectComponent} from './signals/effect.component';
 import {LinkedProductComponent} from './signals/linked-product.component';
+import {TodoContainerComponent} from './TodoComponents/todo-container.component';
 
 @Component({
   selector: 'app-root',
@@ -33,9 +34,10 @@ import {LinkedProductComponent} from './signals/linked-product.component';
     ComputedComponent,
     EffectComponent,
     LinkedProductComponent,
+    TodoContainerComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'proot';
