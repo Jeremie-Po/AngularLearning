@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-todo',
   imports: [],
   template: `
-    <p>
-      todo works!
-    </p>
+    <li class="flex gap-12 border px-12">
+      <p class="flex-auto">todo</p>
+      <input type="checkbox">
+    </li>
   `,
   styles: ``
 })

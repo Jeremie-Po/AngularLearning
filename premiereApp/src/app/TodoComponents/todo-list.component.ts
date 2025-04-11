@@ -1,17 +1,25 @@
 import {Component} from '@angular/core';
+import {TodoComponent} from './todo.component';
 
 @Component({
   selector: 'app-todo-list',
-  imports: [],
+  imports: [
+    TodoComponent
+  ],
   template: `
-    <ul>
-      <li class="flex gap-12">
-        <p class="flex-auto">todo</p>
-        <input type="checkbox">
-      </li>
+    <ul class="flex flex-col gap-12">
+      <app-todo/>
+      <app-todo/>
+      <app-todo/>
+      <app-todo/>
+      <app-todo/>
     </ul>
   `,
-  styles: ``
+  styles: `
+    ul {
+      margin-top: 12px;
+    }
+  `
 })
 export class TodoListComponent {
 

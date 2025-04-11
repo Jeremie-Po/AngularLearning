@@ -12,11 +12,7 @@ import {TodoListComponent} from './todo-list.component';
     <app-todo-form/>
     <app-todo-list/>
   `,
-  styles: `
-    :host {
-      padding: 32px
-    }
-  `
+  styles: ``
 })
 export class TodoContainerComponent {
 
