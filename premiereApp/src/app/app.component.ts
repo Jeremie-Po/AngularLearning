@@ -10,6 +10,7 @@ import {IfComponent} from './structuralDirective/if.component';
 import {SwitchComponent} from './structuralDirective/switch.component';
 import {ForComponent} from './structuralDirective/for.component';
 import {LetComponent} from './structuralDirective/let.component';
+import {SignalsComponent} from './signals/signals.component';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ import {LetComponent} from './structuralDirective/let.component';
     SwitchComponent,
     ForComponent,
     LetComponent,
+    SignalsComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
