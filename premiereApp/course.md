@@ -754,3 +754,96 @@ export class CompteurComponent {
   }
 }
 ```
+
+### signal effect()
+
+Exemples :
+
+Journalisation des modifications. Enregistrer chaque modification d'un compteur dans une console :
+
+```
+import { Component, signal, effect } from '@angular/core';
+
+@Component({
+  selector: 'app-compteur',
+  template: `
+    <h1>Compteur : {{ compteur() }}</h1>
+    <button (click)="incrementer()">+1</button>
+    <button (click)="decrementer()">-1</button>
+  `,
+})
+export class CompteurComponent {
+  compteur = signal(0);
+
+  constructor() {
+    effect(() => {
+      console.log(`La valeur du compteur a changé : ${this.compteur()}`);
+    });
+  }
+
+  incrementer() {
+    this.compteur.update((val) => val + 1);
+  }
+
+  decrementer() {
+    this.compteur.update((val) => val - 1);
+  }
+}
+```
+
+Synchronisaiton avec un local storage :
+
+```
+import { Component, signal, effect } from '@angular/core';
+
+@Component({
+  selector: 'app-formulaire',
+  template: `
+    <label for="nom">Nom :</label>
+    <input id="nom" [(ngModel)]="nom" />
+    <p>Nom enregistré : {{ nom() }}</p>
+  `,
+})
+export class FormulaireComponent {
+  nom = signal('');
+
+  constructor() {
+    effect(() => {
+      localStorage.setItem('nomUtilisateur', this.nom());
+      console.log(`Nom enregistré dans le localStorage : ${this.nom()}`);
+    });
+  }
+}
+```
+
+suivi en temps réel d'une api :
+
+```
+import { Component, signal, effect } from '@angular/core';
+
+@Component({
+  selector: 'app-produit',
+  template: `
+    <label for="produit">ID Produit :</label>
+    <input id="produit" type="number" [(ngModel)]="idProduit" />
+    <h2>Détails du produit</h2>
+    <pre>{{ produit() | json }}</pre>
+  `,
+})
+export class ProduitComponent {
+  idProduit = signal(1); // ID du produit sélectionné
+  produit = signal({}); // Données du produit
+
+  constructor() {
+    effect(() => {
+      const id = this.idProduit();
+      fetch(`https://api.exemple.com/produits/${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          this.produit.set(data);
+        })
+        .catch((err) => console.error('Erreur de récupération :', err));
+    });
+  }
+}
+```

@@ -12,6 +12,7 @@ import {ForComponent} from './structuralDirective/for.component';
 import {LetComponent} from './structuralDirective/let.component';
 import {SignalsComponent} from './signals/signals.component';
 import {ComputedComponent} from './signals/computed.component';
+import {EffectComponent} from './signals/effect.component';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ import {ComputedComponent} from './signals/computed.component';
     LetComponent,
     SignalsComponent,
     ComputedComponent,
+    EffectComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
