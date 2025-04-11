@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, input} from '@angular/core';
 
 @Component({
   selector: 'app-todo-form',
@@ -21,5 +21,4 @@ import {Component} from '@angular/core';
   `
 })
 export class TodoFormComponent {
-
 }

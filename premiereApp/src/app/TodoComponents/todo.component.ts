@@ -1,16 +1,18 @@
-import {Component} from '@angular/core';
+import {Component, input} from '@angular/core';
+import {Todo} from '../shared/interfaces';
 
 @Component({
   selector: 'app-todo',
   imports: [],
   template: `
+    @let t = todo();
     <li class="flex gap-12 border px-12">
-      <p class="flex-auto">todo</p>
+      <p class="flex-auto">{{ t.name }}</p>
       <input type="checkbox">
     </li>
   `,
   styles: ``
 })
 export class TodoComponent {
-
+  todo = input.required<Todo>()
 }

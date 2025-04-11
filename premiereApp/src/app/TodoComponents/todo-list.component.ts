@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, effect, input} from '@angular/core';
 import {TodoComponent} from './todo.component';
+import {Todo} from '../shared/interfaces';
 
 @Component({
   selector: 'app-todo-list',
@@ -8,11 +9,10 @@ import {TodoComponent} from './todo.component';
   ],
   template: `
     <ul class="flex flex-col gap-12">
-      <app-todo/>
-      <app-todo/>
-      <app-todo/>
-      <app-todo/>
-      <app-todo/>
+      @for (todo of todos(); track todo.id) {
+        <app-todo [todo]="todo"/>
+
+      }
     </ul>
   `,
   styles: `
@@ -22,5 +22,11 @@ import {TodoComponent} from './todo.component';
   `
 })
 export class TodoListComponent {
+  todos = input<Todo[]>();
 
+  constructor() {
+    effect(() => {
+      console.log(this.todos());
+    })
+  }
 }
