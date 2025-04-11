@@ -13,6 +13,7 @@ import {LetComponent} from './structuralDirective/let.component';
 import {SignalsComponent} from './signals/signals.component';
 import {ComputedComponent} from './signals/computed.component';
 import {EffectComponent} from './signals/effect.component';
+import {LinkedProductComponent} from './signals/linked-product.component';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ import {EffectComponent} from './signals/effect.component';
     SignalsComponent,
     ComputedComponent,
     EffectComponent,
+    LinkedProductComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
