@@ -10,7 +10,7 @@ import {Todo} from '../shared/interfaces';
     TodoListComponent
   ],
   template: `
-    <app-todo-form/>
+    <app-todo-form (addTodo)="addTodo($event)"/>
     <app-todo-list [todos]="todoList()"/>
   `,
   styles: ``
@@ -33,6 +33,10 @@ export class TodoContainerComponent {
       'done': true,
     }
   ])
+
+  addTodo(todo: Todo) {
+    return this.todoList.update((todoList) => [...todoList, todo]);
+  }
 
 
 }

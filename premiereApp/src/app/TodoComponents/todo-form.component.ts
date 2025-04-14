@@ -1,11 +1,15 @@
-import {Component, input} from '@angular/core';
+import {Component, input, output} from '@angular/core';
+import {Todo} from '../shared/interfaces';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-todo-form',
-  imports: [],
+  imports: [
+    FormsModule
+  ],
   template: `
-    <input type="text" placeholder="Entrer une tâche" class="flex-auto">
-    <button class="btn btn-primary"> Ajouter</button>
+    <input [(ngModel)]="todoName" type="text" placeholder="Entrer une tâche" class="flex-auto">
+    <button (click)="addFormTodo()" class="btn btn-primary"> Ajouter</button>
   `,
   styles: `
     :host {
@@ -21,4 +25,19 @@ import {Component, input} from '@angular/core';
   `
 })
 export class TodoFormComponent {
+  todoName: string = '';
+
+  addTodo = output<Todo>()
+
+  addFormTodo() {
+    if (this.todoName) {
+      const newTodo: Todo = {
+        name: this.todoName,
+        done: false,
+        id: '' + Math.floor(Math.random() * 1001),
+      }
+      this.todoName = '';
+      this.addTodo.emit(newTodo);
+    }
+  }
 }
