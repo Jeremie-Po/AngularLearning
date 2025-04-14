@@ -16,6 +16,7 @@ import {EffectComponent} from './signals/effect.component';
 import {LinkedProductComponent} from './signals/linked-product.component';
 import {TodoContainerComponent} from './TodoComponents/todo-container.component';
 import {FruitParentComponent} from './fruitComponent/fruit-parent.component';
+import {NgContentParentComponent} from './ngContent/ng-content-parent.component';
 
 @Component({
   selector: 'app-root',
@@ -37,6 +38,7 @@ import {FruitParentComponent} from './fruitComponent/fruit-parent.component';
     LinkedProductComponent,
     TodoContainerComponent,
     FruitParentComponent,
+    NgContentParentComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

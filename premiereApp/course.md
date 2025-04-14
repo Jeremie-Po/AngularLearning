@@ -915,3 +915,87 @@ export class ExempleComponent implements AfterViewInit {
 }
 ```
 
+### Ng Content
+
+permet d'intégrer du contenu dans un composant.  
+Exemple : on creer un carte qui pourra être réutilisable et dont le contenu pour etre changé en fcontion de la situation :
+
+```
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'app-ng-content',
+  imports: [],
+  template: `
+    <p class="card">
+      <ng-content/>
+    </p>
+  `,
+  styles: `
+    .card {
+      border: 1px solid #7e22ce;
+      border-radius: 4px;
+      padding: 16px;
+    }`
+})
+export class NgContentComponent {
+
+}
+
+
+```
+
+exemple plus complexe :
+
+dans le composant enfant :
+
+```
+template: `
+    <div class="card">
+      <div class="title">
+        <ng-content select=".title"/>
+      </div>
+      <div class="content">
+        <ng-content select=".content"/>
+      </div>
+      <div class="default">
+        <ng-content select=".default">Contenu par défaut dans le cas ou il n'ya pas de class defaut dans le parent
+        </ng-content>
+      </div>
+    </div>
+  `,
+  styles: `
+    .card {
+      border: 1px solid #7e22ce;
+      border-radius: 4px;
+      padding: 16px;
+    }
+
+    .content {
+      color: #7e22ce;
+    }
+
+    .title {
+      color: red;
+      font-weight: bold;
+    }`,
+```
+
+dans le parent :
+
+```
+  template: `
+    <app-ng-content>
+      <h1 class="title">HelloWorld !</h1>
+      <p class="content">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aperiam architecto asperiores assumenda culpa
+        cupiditate deleniti deserunt, dolore earum eligendi eum expedita id maiores mollitia optio quisquam tempore
+        velit voluptas!
+      </p>
+
+    </app-ng-content>
+    <app-ng-content>
+      <h1>Hello World !</h1>
+      <button>Click me</button>
+    </app-ng-content>
+```
