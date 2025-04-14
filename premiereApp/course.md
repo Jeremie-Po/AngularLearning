@@ -999,3 +999,57 @@ dans le parent :
       <button>Click me</button>
     </app-ng-content>
 ```
+
+Autre exemple de projection multiple sans apsser par la classe :
+
+```
+//composant enfant 
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-carte-profil',
+  template: `
+    <div class="carte">
+      <div class="en-tête">
+        <ng-content select="[en-tête]"></ng-content>
+      </div>
+      <div class="corps">
+        <ng-content></ng-content>
+      </div>
+      <div class="pied-de-page">
+        <ng-content select="[pied-de-page]"></ng-content>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .carte {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .en-tête, .pied-de-page {
+      background-color: #f1f1f1;
+      padding: 12px;
+    }
+    .corps {
+      padding: 16px;
+    }
+  `]
+})
+export class CarteProfilComponent {}
+```
+
+```
+//composant parent 
+
+<app-carte-profil>
+  <div en-tête>
+    <h2>Jean Dupont</h2>
+  </div>
+  <p>Développeur passionné par les technologies web modernes.</p>
+  <div pied-de-page>
+    <button>Contactez-moi</button>
+  </div>
+</app-carte-profil>
+```
