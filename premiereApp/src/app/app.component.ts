@@ -15,6 +15,7 @@ import {ComputedComponent} from './signals/computed.component';
 import {EffectComponent} from './signals/effect.component';
 import {LinkedProductComponent} from './signals/linked-product.component';
 import {TodoContainerComponent} from './TodoComponents/todo-container.component';
+import {FruitParentComponent} from './fruitComponent/fruit-parent.component';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +36,7 @@ import {TodoContainerComponent} from './TodoComponents/todo-container.component'
     EffectComponent,
     LinkedProductComponent,
     TodoContainerComponent,
+    FruitParentComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

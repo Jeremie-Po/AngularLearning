@@ -847,3 +847,71 @@ export class ProduitComponent {
   }
 }
 ```
+
+### View Child / Children
+
+les fonctions viewchild et viewchildren permettent d'accéder aux éléments du DOM ou aux composants enfants depuis la classe d'un composant parent.  
+Ils sont essentiels pour interagir directement avec des éléments du template, que ce soit pour manipuler des proprites, appeler des méthodes ou modifier le dom.
+
+* viewchild()
+  permet de sélectionner un élément unique.  
+  utile lorsqu on doit interagir avec un composant enfant spécifique ou un élément du dom précis.
+
+exemple : Acc&éder à un champ texte du template
+
+```
+import { Component, ElementRef, AfterViewInit, computed, effect, viewChild } from '@angular/core';
+
+@Component({
+  selector: 'app-exemple',
+  template: `
+    <input #monInput type="text" placeholder="Tapez quelque chose..." />
+  `,
+  styles: []
+})
+export class ExempleComponent implements AfterViewInit {
+  monInput = viewChild<ElementRef<HTMLInputElement>>('monInput');
+
+  ngAfterViewInit() {
+    effect(() => {
+      const inputElement = this.monInput()?.nativeElement;
+      if (inputElement) {
+        inputElement.focus();
+      }
+    });
+  }
+}
+```
+
+viewChild permet d'obtenir une référence réactive à l'élément input
+
+* viewChildren()
+  permet de récupérer une liste d'enfants sous forme de signa réactif.
+
+exemple : on souhaite appliquer une meme action a chaque paragraphe
+
+```
+import { Component, ElementRef, AfterViewInit, computed, effect, viewChildren } from '@angular/core';
+
+@Component({
+  selector: 'app-exemple',
+  template: `
+    <p #paragraphe>Paragraphe 1</p>
+    <p #paragraphe>Paragraphe 2</p>
+    <p #paragraphe>Paragraphe 3</p>
+  `,
+  styles: []
+})
+export class ExempleComponent implements AfterViewInit {
+  paragraphes = viewChildren<ElementRef<HTMLParagraphElement>>('paragraphe');
+
+  ngAfterViewInit() {
+    effect(() => {
+      this.paragraphes()?.forEach((p) => {
+        p.nativeElement.style.color = 'blue';
+      });
+    });
+  }
+}
+```
+
