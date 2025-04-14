@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, input, output} from '@angular/core';
 import {Todo} from '../shared/interfaces';
 
 @Component({
@@ -8,11 +8,15 @@ import {Todo} from '../shared/interfaces';
     @let t = todo();
     <li class="flex gap-12 border px-12">
       <p class="flex-auto">{{ t.name }}</p>
-      <input type="checkbox">
+      <input type="checkbox" [checked]="t.done">
     </li>
   `,
+  host: {
+    '(click)': "toggleTodo.emit(todo().id)"
+  },
   styles: ``
 })
 export class TodoComponent {
-  todo = input.required<Todo>()
+  todo = input.required<Todo>();
+  toggleTodo = output<string>();
 }

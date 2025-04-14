@@ -1,4 +1,4 @@
-import {Component, signal} from '@angular/core';
+import {Component, effect, signal} from '@angular/core';
 import {TodoFormComponent} from './todo-form.component';
 import {TodoListComponent} from './todo-list.component';
 import {Todo} from '../shared/interfaces';
@@ -11,7 +11,7 @@ import {Todo} from '../shared/interfaces';
   ],
   template: `
     <app-todo-form (addTodo)="addTodo($event)"/>
-    <app-todo-list [todos]="todoList()"/>
+    <app-todo-list [todos]="todoList()" (toggleTodo)="toggleTodo($event)"/>
   `,
   styles: ``
 })
@@ -38,5 +38,22 @@ export class TodoContainerComponent {
     return this.todoList.update((todoList) => [...todoList, todo]);
   }
 
+  toggleTodo(todoId: string) {
+    this.todoList.update((todoList) => todoList.map((todo) => {
+      if (todoId === todo.id) {
+        return {
+          ...todo,
+          done: !todo.done,
+        };
+      } else {
+        return todo;
+      }
+    }))
+  }
 
+  constructor() {
+    effect(() => {
+      console.log(this.todoList());
+    })
+  }
 }
