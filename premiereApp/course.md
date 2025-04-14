@@ -1053,3 +1053,69 @@ export class CarteProfilComponent {}
   </div>
 </app-carte-profil>
 ```
+
+### @Defer
+
+va permettre de différer le chargement de certains composant dans une page.  
+il sera alors possible de conditionner le chargement :
+
+* soit à la fin de chargement de l apage
+* soit sur une action du client (click par exemple)
+* soit sur le view port (lorsqu'on atteint la partie a charger en scrollant)
+* au passage de la souris sur le composant à charger
+* ...
+
+iil est possible de mettre un place holder le temps du chargement et / ou un loader
+
+voir les options :
+
+https://angular.fr/template-syntax/defer
+
+### rendu dynamique d'un composant
+
+il est possible de charger et d'afficher dynamiquement un composant lorsqu'on en a besoin.
+
+methode 1 : choix d'un composant en fonciton d'un evenement
+
+```
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AdminBioComponent } from './admin-bio.component';
+import { StandardBioComponent } from './standard-bio.component';
+
+@Component({
+  selector: 'app-profil-utilisateur',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <h2>Profil de l'utilisateur</h2>
+    <ng-container *ngComponentOutlet="composantBio"></ng-container>
+  `,
+})
+export class ProfilUtilisateurComponent {
+  estAdmin = true;
+
+  get composantBio() {
+    return this.estAdmin ? AdminBioComponent : StandardBioComponent;
+  }
+}
+```
+
+methode 2 chargement spécifique d'un composant suite à un evenement :
+
+```
+import { Component, ViewContainerRef, inject } from '@angular/core';
+
+@Component({
+  selector: 'app-conteneur-dynamique',
+  template: `<button (click)="chargerComposant()">Charger le composant</button>`,
+})
+export class ConteneurDynamiqueComponent {
+  private viewContainerRef = inject(ViewContainerRef);
+
+  async chargerComposant() {
+    const { ComposantDynamiqueComponent } = await import('./composant-dynamique.component');
+    this.viewContainerRef.createComponent(ComposantDynamiqueComponent);
+  }
+} 
+```
