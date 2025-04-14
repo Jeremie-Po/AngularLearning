@@ -11,7 +11,8 @@ import {TodoFilterComponent} from './todo-filter.component';
   ],
   template: `
     <hr/>
-    <app-todo-filter [filter]="filter()" (filterChange)="filter.set($event)"/>
+    <!--    <app-todo-filter [filter]="filter()" (filterChange)="filter.set($event)"/>-->
+    <app-todo-filter [(filter)]="filter"/>
     <hr/>
     <ul class="flex flex-col gap-12">
       @for (todo of filteredTodos(); track todo.id) {
