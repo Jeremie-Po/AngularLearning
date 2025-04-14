@@ -13,6 +13,9 @@ import {TodoFilterComponent} from './todo-filter.component';
     <hr/>
     <!--    <app-todo-filter [filter]="filter()" (filterChange)="filter.set($event)"/>-->
     <app-todo-filter [(filter)]="filter"/>
+    <p>
+      Number of filterd items : {{ numberOfTodos() }}
+    </p>
     <hr/>
     <ul class="flex flex-col gap-12">
       @for (todo of filteredTodos(); track todo.id) {
@@ -32,9 +35,12 @@ export class TodoListComponent {
   todos = input<Todo[]>([]);
   toggleTodo = output<string>();
 
+  numberOfTodos = computed(() =>
+    this.filteredTodos().length
+  );
   filteredTodos = computed(() =>
     this.todos().filter((t) => t.name.toLowerCase().includes(this.filter()))
-  )
+  );
 
   constructor() {
     effect(() => {
