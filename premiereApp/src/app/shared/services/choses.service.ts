@@ -13,6 +13,12 @@ export class ChosesService {
     console.log(this.choses);
   };
 
+  remove(index: number) {
+    this.choses.update((chose) =>
+      chose.filter((c, i) => i !== index)
+    )
+  }
+
   constructor() {
   }
 }

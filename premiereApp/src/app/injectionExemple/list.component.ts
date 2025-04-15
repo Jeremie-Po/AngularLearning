@@ -7,7 +7,7 @@ import {ChosesService} from '../shared/services/choses.service';
   template: `
     <ul>
       @for (chose of choses(); track $index) {
-        <li>{{ chose }}</li>
+        <li (click)="remove($index)">{{ chose }}</li>
       }
     </ul>
   `,
@@ -15,6 +15,11 @@ import {ChosesService} from '../shared/services/choses.service';
 })
 export class ListComponent {
   chosesServices = inject(ChosesService);
+
+  remove(index: number) {
+    this.chosesServices.remove(index);
+  }
+
   choses = this.chosesServices.choses;
 
 }
