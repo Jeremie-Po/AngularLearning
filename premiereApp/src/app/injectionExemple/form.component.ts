@@ -19,5 +19,6 @@ export class FormComponent {
 
   add() {
     this.chosesService.add(this.chose);
+    this.chosesService.log(this.chose);
   }
 }
