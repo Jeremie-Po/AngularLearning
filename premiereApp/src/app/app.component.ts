@@ -17,6 +17,8 @@ import {LinkedProductComponent} from './signals/linked-product.component';
 import {TodoContainerComponent} from './TodoComponents/todo-container.component';
 import {FruitParentComponent} from './fruitComponent/fruit-parent.component';
 import {NgContentParentComponent} from './ngContent/ng-content-parent.component';
+import {FormComponent} from './injectionExemple/form.component';
+import {ListComponent} from './injectionExemple/list.component';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +41,8 @@ import {NgContentParentComponent} from './ngContent/ng-content-parent.component'
     TodoContainerComponent,
     FruitParentComponent,
     NgContentParentComponent,
+    FormComponent,
+    ListComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
