@@ -30,6 +30,16 @@ ng new premiereApp
   CSS  
   No to SSR
 
+### Création de fichiers
+
+```
+ng g c nomCOmposant
+
+ng g d nomDirective
+
+ng g s nomService
+```
+
 ### lancer l'appli
 
 ```

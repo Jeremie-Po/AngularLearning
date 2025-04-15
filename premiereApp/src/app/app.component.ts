@@ -19,6 +19,7 @@ import {FruitParentComponent} from './fruitComponent/fruit-parent.component';
 import {NgContentParentComponent} from './ngContent/ng-content-parent.component';
 import {FormComponent} from './injectionExemple/form.component';
 import {ListComponent} from './injectionExemple/list.component';
+import {DirectiveComponent} from './directive/directive.component';
 
 @Component({
   selector: 'app-root',
@@ -43,6 +44,7 @@ import {ListComponent} from './injectionExemple/list.component';
     NgContentParentComponent,
     FormComponent,
     ListComponent,
+    DirectiveComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
