@@ -21,6 +21,7 @@ import {FormComponent} from './injectionExemple/form.component';
 import {ListComponent} from './injectionExemple/list.component';
 import {DirectiveComponent} from './directive/directive.component';
 import {DirectiveLocalGlobaleInputComponent} from './directive/directive-local-globale-input.component';
+import {DirectiveStructurelleComponent} from './directive/directive-structurelle.component';
 
 @Component({
   selector: 'app-root',
@@ -47,6 +48,7 @@ import {DirectiveLocalGlobaleInputComponent} from './directive/directive-local-g
     ListComponent,
     DirectiveComponent,
     DirectiveLocalGlobaleInputComponent,
+    DirectiveStructurelleComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
