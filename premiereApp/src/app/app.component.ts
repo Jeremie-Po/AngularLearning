@@ -24,6 +24,7 @@ import {DirectiveLocalGlobaleInputComponent} from './directive/directive-local-g
 import {DirectiveStructurelleComponent} from './directive/directive-structurelle.component';
 import {BasicPipesComponent} from './pipes/basic-pipes.component';
 import {CurrencyDatePipesComponent} from './pipes/currency-date-pipes.component';
+import {CustomPipesComponent} from './pipes/custom-pipes.component';
 
 @Component({
   selector: 'app-root',
@@ -53,6 +54,7 @@ import {CurrencyDatePipesComponent} from './pipes/currency-date-pipes.component'
     DirectiveStructurelleComponent,
     BasicPipesComponent,
     CurrencyDatePipesComponent,
+    CustomPipesComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
