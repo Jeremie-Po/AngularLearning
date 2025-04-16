@@ -1,18 +1,24 @@
-import {Component, effect, inject, signal} from '@angular/core';
+import {Component, computed, effect, inject, signal} from '@angular/core';
 import {TodoFormComponent} from './todo-form.component';
 import {TodoListComponent} from './todo-list.component';
 import {Todo, TodoForm} from '../shared/interfaces';
 import {TodosService} from '../shared/services/todos.service';
+import {JsonPipe} from '@angular/common';
 
 @Component({
   selector: 'app-todo-container',
   imports: [
     TodoFormComponent,
-    TodoListComponent
+    TodoListComponent,
+    JsonPipe
   ],
   template: `
     <app-todo-form (addTodo)="addTodo($event)"/>
-    <app-todo-list [todos]="todoList()" (toggleTodo)="toggleTodo($event)"/>
+    <app-todo-list
+      [todos]="todoList()"
+      (toggleTodo)="toggleTodo($event)"
+      (selectTodo)="selectTodo($event)"/>
+    <pre>{{ selectedTodo() | json }}</pre>
   `,
   styles: ``
 })
@@ -34,8 +40,18 @@ export class TodoContainerComponent {
   //     'done': true,
   //   }
   // ])
-  todoList = signal<Todo[]>([]);
+  // todoList = signal<Todo[]>([]);
+
   todoService = inject(TodosService);
+  todoList = computed(() => this.todoService.todosResource.value() || []);
+  selectedTodo = this.todoService.selectedTodoIdResource.value;
+
+
+  // exemple de fetch classique : (il faut utiliser l'objet resource en angular)
+  // async ngOnInit() {
+  //   const list = await (await fetch('https://restapi.fr/api/atodos')).json();
+  //   this.todoList.set(list);
+  // }
 
 
   addTodo(todo: TodoForm) {
@@ -43,16 +59,11 @@ export class TodoContainerComponent {
   }
 
   toggleTodo(todoId: string) {
-    this.todoList.update((todoList) => todoList.map((todo) => {
-      if (todoId === todo._id) {
-        return {
-          ...todo,
-          done: !todo.done,
-        };
-      } else {
-        return todo;
-      }
-    }))
+
+  }
+
+  selectTodo(todoId: string) {
+    this.todoService.selectTodo(todoId);
   }
 
   constructor() {

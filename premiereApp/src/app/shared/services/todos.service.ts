@@ -1,11 +1,32 @@
-import {Injectable} from '@angular/core';
-import {TodoForm} from '../interfaces';
+import {Injectable, resource, signal} from '@angular/core';
+import {Todo, TodoForm} from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodosService {
   BASE_URL = 'https://restapi.fr/api/atodos';
+  selectedTodoId = signal<string | null>(null)
+
+  todosResource = resource({
+    loader: async (): Promise<Todo[]> => (await fetch(this.BASE_URL)).json(),
+  })
+
+  selectedTodoIdResource = resource({
+    request: this.selectedTodoId,
+    loader: async ({request}): Promise<Todo | undefined> => {
+      if (request) {
+        return (await fetch(`${this.BASE_URL}/${request}`)).json();
+      } else {
+        return;
+      }
+    }
+
+  })
+
+  selectTodo(todoId: string) {
+    this.selectedTodoId.set(todoId);
+  }
 
   constructor() {
   }
@@ -21,7 +42,11 @@ export class TodosService {
       });
       const body = await response.json()
       if (response.ok) {
-        console.log({body})
+        this.todosResource.update((todos) => {
+
+          return [...todos ?? [], body];
+        });
+        console.log('BODYYY', body)
       } else {
         throw new Error('Oops');
       }
