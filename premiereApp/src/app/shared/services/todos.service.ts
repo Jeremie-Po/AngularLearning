@@ -85,4 +85,24 @@ export class TodosService {
     }
 
   }
+
+  async deleteTodo(id: string) {
+    try {
+      const response = await fetch(`${this.BASE_URL}/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        this.todosResource.update((todos) => {
+          return todos?.filter(({_id}) => (_id !== id))
+        });
+        if (this.selectedTodoId() === id) {
+          this.selectedTodoId.set(null);
+        }
+      } else {
+        throw new Error('Oops');
+      }
+    } catch (e) {
+      throw new Error('Oops');
+    }
+  }
 }

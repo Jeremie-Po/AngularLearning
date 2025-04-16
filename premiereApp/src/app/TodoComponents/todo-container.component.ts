@@ -17,7 +17,9 @@ import {JsonPipe} from '@angular/common';
     <app-todo-list
       [todos]="todoList()"
       (updateTodo)="updateTodo($event)"
-      (selectTodo)="selectTodo($event)"/>
+      (selectTodo)="selectTodo($event)"
+      (deleteTodo)="deleteTodo($event)"
+    />
     <pre>{{ selectedTodo() | json }}</pre>
   `,
   styles: ``
@@ -64,6 +66,12 @@ export class TodoContainerComponent {
 
   selectTodo(todoId: string) {
     this.todoService.selectTodo(todoId);
+  }
+
+  deleteTodo(todoId: string) {
+    console.log(todoId);
+    this.todoService.deleteTodo(todoId);
+
   }
 
   constructor() {

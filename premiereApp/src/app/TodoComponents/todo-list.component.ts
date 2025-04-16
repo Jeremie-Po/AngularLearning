@@ -19,7 +19,12 @@ import {TodoFilterComponent} from './todo-filter.component';
     <hr/>
     <ul class="flex flex-col gap-12">
       @for (todo of filteredTodos(); track todo._id) {
-        <app-todo [todo]="todo" (selectTodo)="selectTodo.emit($event)" (updateTodo)="updateTodo.emit($event)"/>
+        <app-todo
+          [todo]="todo"
+          (selectTodo)="selectTodo.emit($event)"
+          (updateTodo)="updateTodo.emit($event)"
+          (deleteTodo)="deleteTodo.emit($event)"
+        />
 
       }
     </ul>
@@ -35,6 +40,7 @@ export class TodoListComponent {
   todos = input<Todo[]>([]);
   updateTodo = output<Todo>();
   selectTodo = output<string>();
+  deleteTodo = output<string>();
 
   numberOfTodos = computed(() =>
     this.filteredTodos().length
