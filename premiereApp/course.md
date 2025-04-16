@@ -1179,3 +1179,84 @@ Possibilité de chainer plusieurs pipes :
 
 Liste des pipes dans Angular :  
 https://v17.angular.io/api?type=pipe
+
+### Resource
+
+la fonction sert a suivre, charger et réagir à des données asynchrones. notament pour les appels api ou les données dépendantes d'autres resources.
+
+une resource peut :
+
+* charger des données via un loader (asynchrone)
+* reagir aux changement de dépendances via un request
+* fournir des données utiles pour gérer l'état de données (value, isloading error etc...)
+
+structure de la resource :
+
+```
+resource<T>({
+  loader: async (): Promise<T> => { /* Chargement des données */ },
+  request?: signal<T>, // Dépendance réactive optionnelle
+});
+```
+
+exemple de structure :
+
+```
+import { Injectable, signal } from '@angular/core';
+import { resource } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class TodoService {
+  BASE_URL = 'https://api.exemple.com/todos';
+
+  todosResource = resource({
+    loader: async () => {
+      const response = await fetch(this.BASE_URL);
+      if (!response.ok) {
+        throw new Error('Erreur lors du chargement des tâches.');
+      }
+      return response.json();
+    },
+  });
+
+  reloadTodos() {
+    this.todosResource.reload();
+  }
+}
+```
+
+`loader` fonction asynchrone pour charger les données
+`request` dépendance réactive pour déclencher le rechargement des données d'une valeurs dynamique
+
+exemple avec dependances :
+
+```
+import { Injectable, signal } from '@angular/core';
+import { resource } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class TodoService {
+  BASE_URL = 'https://api.exemple.com/todos';
+  selectedTodoId = signal<string | null>(null);
+
+  selectedTodoResource = resource({
+    request: this.selectedTodoId,
+    loader: async (id) => {
+      if (!id) return null;
+      const response = await fetch(`${this.BASE_URL}/${id}`);
+      if (!response.ok) {
+        throw new Error('Erreur lors du chargement de la tâche.');
+      }
+      return response.json();
+    },
+  });
+
+  selectTodo(id: string) {
+    this.selectedTodoId.set(id);
+  }
+}
+```
