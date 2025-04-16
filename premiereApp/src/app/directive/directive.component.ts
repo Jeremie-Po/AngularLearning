@@ -5,6 +5,7 @@ import {InputDirective} from '../shared/directives/input.directive';
   selector: 'app-directive',
   imports: [InputDirective],
   template: `
+    <p> le texte de l'input changera en fonction de la couleur ecrite dans l/'input (rouge, red, vert,green...</p>
     <input appInput type="text">
   `,
   styles: ``

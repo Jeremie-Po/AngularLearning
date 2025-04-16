@@ -20,6 +20,7 @@ import {NgContentParentComponent} from './ngContent/ng-content-parent.component'
 import {FormComponent} from './injectionExemple/form.component';
 import {ListComponent} from './injectionExemple/list.component';
 import {DirectiveComponent} from './directive/directive.component';
+import {DirectiveLocalGlobaleInputComponent} from './directive/directive-local-globale-input.component';
 
 @Component({
   selector: 'app-root',
@@ -45,6 +46,7 @@ import {DirectiveComponent} from './directive/directive.component';
     FormComponent,
     ListComponent,
     DirectiveComponent,
+    DirectiveLocalGlobaleInputComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
