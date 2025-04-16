@@ -13,10 +13,15 @@ export class TodosService {
   })
 
   selectedTodoIdResource = resource({
-    request: this.selectedTodoId,
-    loader: async ({request}): Promise<Todo | undefined> => {
-      if (request) {
-        return (await fetch(`${this.BASE_URL}/${request}`)).json();
+    request: () => ({
+      id: this.selectedTodoId()
+    }),
+    //abortSignal : permet d'annuler une requete en cours si un nouveau request est emis
+    //previous un objet contenant le statut précédent
+    loader: async ({request: {id}, abortSignal, previous}): Promise<Todo | undefined> => {
+      console.log('PREVIOUS', previous);
+      if (id) {
+        return (await fetch(`${this.BASE_URL}/${id}`, {signal: abortSignal})).json();
       } else {
         return;
       }
@@ -42,10 +47,11 @@ export class TodosService {
       });
       const body = await response.json()
       if (response.ok) {
-        this.todosResource.update((todos) => {
-
-          return [...todos ?? [], body];
-        });
+        // this.todosResource.update((todos) => {
+        //
+        //   return [...todos ?? [], body];
+        // });
+        this.todosResource.reload();
         console.log('BODYYY', body)
       } else {
         throw new Error('Oops');

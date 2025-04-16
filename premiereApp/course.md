@@ -1260,3 +1260,41 @@ export class TodoService {
   }
 }
 ```
+
+#### Resource details
+
+dans le cas ou la resource depend de plusieurs dépendances  :
+
+```
+selectedTodoIdResource = resource({
+    request: this.selectedTodoId,
+    loader: async ({request}): Promise<Todo | undefined> => {
+      if (request) {
+        return (await fetch(`${this.BASE_URL}/${request}`)).json();
+      } else {
+        return;
+      }
+    }
+
+  })
+  
+  devient 
+  
+  selectedTodoIdResource = resource({
+    request: () => ({
+      id: this.selectedTodoId()
+    }),
+    loader: async ({request: {id}}): Promise<Todo | undefined> => {
+      if (id) {
+        return (await fetch(`${this.BASE_URL}/${id}`)).json();
+      } else {
+        return;
+      }
+    }
+```
+
+* les méthodes des resources sont les suivantes :
+  reload() : force l'execution du loader meme si request n'a pas changé
+  set (value) : definit la valeur manuellement
+  clear() : réinitialise la ressource à l'état Idle en supprimant et en arretant les chargements en cours
+  update ((value)=>{})
