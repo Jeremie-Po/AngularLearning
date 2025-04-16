@@ -1,5 +1,5 @@
 import {Component, input, output} from '@angular/core';
-import {Todo} from '../shared/interfaces';
+import {Todo, TodoForm} from '../shared/interfaces';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -27,14 +27,14 @@ import {FormsModule} from '@angular/forms';
 export class TodoFormComponent {
   todoName: string = '';
 
-  addTodo = output<Todo>()
+  addTodo = output<TodoForm>()
 
   addFormTodo() {
     if (this.todoName) {
-      const newTodo: Todo = {
+      const newTodo: TodoForm = {
         name: this.todoName,
         done: false,
-        id: '' + Math.floor(Math.random() * 1001),
+        // _id: '' + Math.floor(Math.random() * 1001),
       }
       this.todoName = '';
       this.addTodo.emit(newTodo);

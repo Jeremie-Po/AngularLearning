@@ -12,7 +12,7 @@ import {Todo} from '../shared/interfaces';
     </li>
   `,
   host: {
-    '(click)': "toggleTodo.emit(todo().id)"
+    '(click)': "toggleTodo.emit(todo()._id)"
   },
   styles: ``
 })

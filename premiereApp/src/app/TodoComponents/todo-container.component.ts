@@ -1,7 +1,8 @@
-import {Component, effect, signal} from '@angular/core';
+import {Component, effect, inject, signal} from '@angular/core';
 import {TodoFormComponent} from './todo-form.component';
 import {TodoListComponent} from './todo-list.component';
-import {Todo} from '../shared/interfaces';
+import {Todo, TodoForm} from '../shared/interfaces';
+import {TodosService} from '../shared/services/todos.service';
 
 @Component({
   selector: 'app-todo-container',
@@ -16,31 +17,34 @@ import {Todo} from '../shared/interfaces';
   styles: ``
 })
 export class TodoContainerComponent {
-  todoList = signal<Todo[]>([
-    {
-      'id': '1',
-      'name': 'Apprendre Angular',
-      'done': false,
-    },
-    {
-      'id': '2',
-      'name': 'Apprendre Java',
-      'done': false,
-    },
-    {
-      'id': '3',
-      'name': 'Apprendre Laravel',
-      'done': true,
-    }
-  ])
+  // todoList = signal<Todo[]>([
+  //   {
+  //     'id': '1',
+  //     'name': 'Apprendre Angular',
+  //     'done': false,
+  //   },
+  //   {
+  //     'id': '2',
+  //     'name': 'Apprendre Java',
+  //     'done': false,
+  //   },
+  //   {
+  //     'id': '3',
+  //     'name': 'Apprendre Laravel',
+  //     'done': true,
+  //   }
+  // ])
+  todoList = signal<Todo[]>([]);
+  todoService = inject(TodosService);
 
-  addTodo(todo: Todo) {
-    return this.todoList.update((todoList) => [...todoList, todo]);
+
+  addTodo(todo: TodoForm) {
+    this.todoService.addTodo(todo);
   }
 
   toggleTodo(todoId: string) {
     this.todoList.update((todoList) => todoList.map((todo) => {
-      if (todoId === todo.id) {
+      if (todoId === todo._id) {
         return {
           ...todo,
           done: !todo.done,

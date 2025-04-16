@@ -18,7 +18,7 @@ import {TodoFilterComponent} from './todo-filter.component';
     </p>
     <hr/>
     <ul class="flex flex-col gap-12">
-      @for (todo of filteredTodos(); track todo.id) {
+      @for (todo of filteredTodos(); track todo._id) {
         <app-todo [todo]="todo" (toggleTodo)="toggleTodo.emit($event)"/>
 
       }
