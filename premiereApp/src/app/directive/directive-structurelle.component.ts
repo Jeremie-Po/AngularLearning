@@ -8,7 +8,10 @@ import {InputStructurelleDirective} from '../shared/directives/input-structurell
   ],
   template: `
     <!--    // cas 1 on active le composant et on récupère la valeur de la varialbe hello fournit par la directive-->
-    <input type="text" *appInputStructurelle="let i = hello" [value]="i">
+    <!--    <input type="text" *appInputStructurelle="let i = hello" [value]="i">-->
+    <!--  cas 2 on veut conditionner l'affichage du composant-->
+    <input type="text" *appInputStructurelle="false">
+
   `,
   styles: ``
 })
