@@ -22,6 +22,8 @@ import {ListComponent} from './injectionExemple/list.component';
 import {DirectiveComponent} from './directive/directive.component';
 import {DirectiveLocalGlobaleInputComponent} from './directive/directive-local-globale-input.component';
 import {DirectiveStructurelleComponent} from './directive/directive-structurelle.component';
+import {BasicPipesComponent} from './pipes/basic-pipes.component';
+import {CurrencyDatePipesComponent} from './pipes/currency-date-pipes.component';
 
 @Component({
   selector: 'app-root',
@@ -49,6 +51,8 @@ import {DirectiveStructurelleComponent} from './directive/directive-structurelle
     DirectiveComponent,
     DirectiveLocalGlobaleInputComponent,
     DirectiveStructurelleComponent,
+    BasicPipesComponent,
+    CurrencyDatePipesComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

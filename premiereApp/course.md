@@ -1128,4 +1128,54 @@ export class ConteneurDynamiqueComponent {
     this.viewContainerRef.createComponent(ComposantDynamiqueComponent);
   }
 } 
+
 ```
+
+### Directives attribut et structurelle
+
+* Attribut :   
+  va permettre de changer des attributs d'un composant qui va réagir par rapport a une ou des méthodes de l'attribut
+* Structurelle :
+  va permettre de changer et/ou de conditionner l'affichage d'un composant
+
+### Pipes
+
+se sont des opératuers spéciaux utilisés dans les expressions de template pour transformer les donnees de manière déclaratives.  
+On peut ainsi transformer directement des templates pour améliorer la lisibilité et la réutilisabilité du code.
+
+#### Syntaxe
+
+on applique le pipe `|` (shift + option + L) dans un template angular
+
+```
+<p>{{ message | uppercase }}</p>
+```
+
+Passer un argument :
+
+```
+<p>{{ today | date:'fullDate' }}</p>
+
+//today est une variable de type date
+// fullDay est un argument qui définit le format date 
+```
+
+autre exemple pour passer un argument :
+
+```
+<p>{{ price | currency:'EUR':'symbol-narrow':'1.2-2' }}</p>
+
+price est un nombre
+EUR indique la devise 
+Symbol-narrow specifie l'utilisation d'un symbol €
+1.2-2 configure le format des décimales (1 chiffre mini, 2 maxi
+```
+
+Possibilité de chainer plusieurs pipes :
+
+```
+<p>{{ amount | currency:'USD':'symbol' | uppercase }}</p>
+```
+
+Liste des pipes dans Angular :  
+https://v17.angular.io/api?type=pipe
