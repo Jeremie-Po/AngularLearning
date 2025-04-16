@@ -16,7 +16,7 @@ import {JsonPipe} from '@angular/common';
     <app-todo-form (addTodo)="addTodo($event)"/>
     <app-todo-list
       [todos]="todoList()"
-      (toggleTodo)="toggleTodo($event)"
+      (updateTodo)="updateTodo($event)"
       (selectTodo)="selectTodo($event)"/>
     <pre>{{ selectedTodo() | json }}</pre>
   `,
@@ -58,8 +58,8 @@ export class TodoContainerComponent {
     this.todoService.addTodo(todo);
   }
 
-  toggleTodo(todoId: string) {
-
+  updateTodo(todo: Todo) {
+    this.todoService.updateTodo(todo);
   }
 
   selectTodo(todoId: string) {

@@ -61,4 +61,28 @@ export class TodosService {
     }
 
   }
+
+  async updateTodo(todo: Todo) {
+    try {
+      const {_id, ...restTodo} = todo;
+      const response = await fetch(`${this.BASE_URL}/${_id}`, {
+        method: "PATCH",
+        body: JSON.stringify(restTodo),
+        headers: {
+          'Content-type': 'application/json'
+        },
+      });
+      const body = await response.json()
+      if (response.ok) {
+        this.todosResource.update((todos) =>
+          todos?.map((t) => (t._id === (body as Todo)._id ? body : t)));
+        this.selectedTodoIdResource.reload()
+      } else {
+        throw new Error('Oops');
+      }
+    } catch (e) {
+      throw new Error('Oops');
+    }
+
+  }
 }
