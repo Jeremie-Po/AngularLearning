@@ -75,6 +75,10 @@ export class AppComponent {
   constructor() {
     effect(() =>
       console.log('events', this.events()))
+    
+    this.router.events.subscribe((event) => {
+      console.log('from Observable', event);
+    })
   }
 
   navigateToUser() {
