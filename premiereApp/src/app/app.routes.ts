@@ -3,6 +3,8 @@ import {HomePageComponent} from './views/home-page.component';
 import {UsersComponent} from './views/users/users.component';
 import {NotFoundComponent} from './views/not-found.component';
 import {UserComponent} from './views/users/views/user.component';
+import {TestActivatedRouteComponent} from './views/testActivatedRoute/test-activated-route.component';
+import {TestIdComponent} from './views/testActivatedRoute/view/test-id.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +24,7 @@ export const routes: Routes = [
     loadChildren: async () => (await import('./views/users/users.routes')).routes
   },
 
+
   {
     path: 'users/:id/:age',
     component: UserComponent,
@@ -30,6 +33,16 @@ export const routes: Routes = [
   {
     path: 'users/:id',
     component: UserComponent,
+  },
+
+  {
+    path: 'tests/:id',
+    component: TestIdComponent,
+  },
+
+  {
+    path: 'tests',
+    component: TestActivatedRouteComponent,
   },
 
 
