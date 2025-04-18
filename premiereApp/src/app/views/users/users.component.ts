@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -10,7 +10,7 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
   ],
   template: `
     <h2>
-      users
+      users avec les composants enfants qui apparaissent directement dans la page grace à router-outlet :
     </h2>
     <ul>
       @for (user of users; track user.id) {
@@ -20,10 +20,26 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
       }
     </ul>
     <router-outlet/>
+
+    <h2>
+      Liens users avec la navigation vers la page du composant :
+    </h2>
+    <ul>
+      @for (user of users; track user.id) {
+        <li (click)="naviguerVersComposant(user.id)">{{ user.name }}</li>
+      }
+    </ul>
   `,
   styles: ``
 })
 export class UsersComponent {
+  constructor(private router: Router) {
+  }
+
+  naviguerVersComposant(id: string) {
+    this.router.navigate(['users', id])
+  }
+
   users = [
     {
       id: '1',

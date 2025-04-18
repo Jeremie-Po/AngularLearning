@@ -5,7 +5,7 @@ import {Component, input} from '@angular/core';
   imports: [],
   template: `
     <p>
-      user works! {{ id() }} {{ age() }}
+      {{ id() }} {{ age() }}
     </p>
   `,
   styles: ``

@@ -25,8 +25,8 @@ import {DirectiveStructurelleComponent} from './directive/directive-structurelle
 import {BasicPipesComponent} from './pipes/basic-pipes.component';
 import {CurrencyDatePipesComponent} from './pipes/currency-date-pipes.component';
 import {CustomPipesComponent} from './pipes/custom-pipes.component';
-import {HomePageComponent} from './components/home-page.component';
-import {UsersComponent} from './components/users.component';
+import {HomePageComponent} from './views/home-page.component';
+import {UsersComponent} from './views/users/users.component';
 
 @Component({
   selector: 'app-root',
