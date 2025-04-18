@@ -13,17 +13,23 @@ export const routes: Routes = [
     loadComponent: async () => (await import('./components/users.component')).UsersComponent,
     //pathmatch full permet de faire matcher la route exact, prefix 'doit commencer par'
     pathMatch: 'full',
+    children: [
+      {
+        path: ':id/:age',
+        component: UserComponent,
+      }
+    ],
   },
 
-  {
-    path: 'users/:id/:age',
-    component: UserComponent,
-  },
-
-  {
-    path: 'users/:id',
-    component: UserComponent,
-  },
+  // {
+  //   path: 'users/:id/:age',
+  //   component: UserComponent,
+  // },
+  //
+  // {
+  //   path: 'users/:id',
+  //   component: UserComponent,
+  // },
 
 
   {
