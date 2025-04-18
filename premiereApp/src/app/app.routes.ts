@@ -38,6 +38,11 @@ export const routes: Routes = [
   {
     path: 'tests/:id',
     component: TestIdComponent,
+    title: 'page de profil d un utilisateur',
+    data: {
+      data1: '123',
+      data2: '456',
+    }
   },
 
   {
