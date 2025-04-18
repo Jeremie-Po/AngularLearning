@@ -27,7 +27,7 @@ export const routes: Routes = [
   },
 
   {
-    // route wild Cart qui permet d'être utiliser qd aucune route n'existe
+    // route wild Card qui permet d'être utiliser qd aucune route n'existe
     path: '**',
     component: NotFoundComponent,
   }

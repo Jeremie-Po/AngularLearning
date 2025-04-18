@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {Component, inject} from '@angular/core';
+import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {DymaComponent} from './dyma/dyma.component';
 import {DymaSFCComponent} from './dyma-sfc.component';
 import {PropertyBindingComponent} from './binding/property-binding.component';
@@ -67,4 +67,16 @@ import {UsersComponent} from './components/users.component';
 })
 export class AppComponent {
   title = 'proot';
+  private router = inject(Router);
+
+  navigateToUser() {
+    this.router.navigate(['users'], {
+      queryParams: {
+        id: '1',
+        name: 'Louis',
+      },
+      fragment: 'frag',
+    });
+    // this.router.navigateByUrl('users');
+  }
 }
