@@ -2,6 +2,7 @@ import {Routes} from '@angular/router';
 import {HomePageComponent} from './components/home-page.component';
 import {UsersComponent} from './components/users.component';
 import {NotFoundComponent} from './components/not-found.component';
+import {UserComponent} from './components/user.component';
 
 export const routes: Routes = [
   {
@@ -11,7 +12,11 @@ export const routes: Routes = [
     // component: UsersComponent,
     loadComponent: async () => (await import('./components/users.component')).UsersComponent,
     //pathmatch full permet de faire matcher la route exact, prefix 'doit commencer par'
-    pathMatch: 'full'
+    pathMatch: 'full',
+  },
+  {
+    path: 'users/:id',
+    component: UserComponent,
   },
 
 
