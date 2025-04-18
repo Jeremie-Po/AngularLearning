@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {DymaComponent} from './dyma/dyma.component';
 import {DymaSFCComponent} from './dyma-sfc.component';
 import {PropertyBindingComponent} from './binding/property-binding.component';
@@ -60,6 +60,7 @@ import {UsersComponent} from './components/users.component';
     HomePageComponent,
     UsersComponent,
     RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

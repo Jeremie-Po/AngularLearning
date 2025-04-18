@@ -121,10 +121,15 @@
 <h1 class="mb-20">Root Component</h1>
 <nav class="flex gap-16 mb-20">
   <li>
-    <a routerLink="/">HomePage</a>
+    <!--    //router active permet de gérer la class qui permet d'activer le liens de la page sur laquelle on est-->
+    <!--    routeroptions permet lui de préciser le liens actif si c'est true, l'url doit etre exact (evite les doublons dans le cas d'url qui commencent pareil)-->
+    <a routerLinkActive="active-item"
+       [routerLinkActiveOptions]="{exact:true}"
+       routerLink="/"
+    >HomePage</a>
   </li>
   <li>
-    <a routerLink="users">Users</a>
+    <a routerLinkActive="active-item" routerLink="users">Users</a>
   </li>
 </nav>
 <router-outlet/>
