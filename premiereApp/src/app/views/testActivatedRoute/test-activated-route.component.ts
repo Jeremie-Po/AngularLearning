@@ -37,6 +37,12 @@ export class TestActivatedRouteComponent {
   ]
 
   naviguerVersComposant(id: string) {
-    this.router.navigate(['tests', id])
+    this.router.navigate(['tests', id], {
+      queryParams: {
+        age: '12',
+      },
+      fragment: 'Je suis le fragment',
+
+    })
   }
 }
