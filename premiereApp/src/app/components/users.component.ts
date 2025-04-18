@@ -13,6 +13,8 @@ import {RouterLink} from '@angular/router';
     <ul>
       @for (user of users; track user.id) {
         <li [routerLink]="[user.id]">{{ user.name }}</li>
+        <!--        Dans le cas au dessus on part de l'url existant pour le liens et dans el cas suivant on repart de zéro pour creer le l 'url-->
+          <!--        <li [routerLink]="['/users',user.id]">{{ user.name }}</li>-->
       }
     </ul>
   `,
