@@ -125,6 +125,8 @@
     <!--    routeroptions permet lui de préciser le liens actif si c'est true, l'url doit etre exact (evite les doublons dans le cas d'url qui commencent pareil)-->
     <a routerLinkActive="active-item"
        [routerLinkActiveOptions]="{exact:true}"
+       [queryParams]="{id:'2'}"
+       fragment="test"
        routerLink="/"
     >HomePage</a>
   </li>
