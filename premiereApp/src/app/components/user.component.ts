@@ -5,11 +5,13 @@ import {Component, input} from '@angular/core';
   imports: [],
   template: `
     <p>
-      user works! {{ id() }}
+      user works! {{ id() }} {{ age() }}
     </p>
   `,
   styles: ``
 })
 export class UserComponent {
   id = input.required<string>();
+  age = input.required<number>();
+
 }

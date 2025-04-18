@@ -14,6 +14,12 @@ export const routes: Routes = [
     //pathmatch full permet de faire matcher la route exact, prefix 'doit commencer par'
     pathMatch: 'full',
   },
+
+  {
+    path: 'users/:id/:age',
+    component: UserComponent,
+  },
+
   {
     path: 'users/:id',
     component: UserComponent,
