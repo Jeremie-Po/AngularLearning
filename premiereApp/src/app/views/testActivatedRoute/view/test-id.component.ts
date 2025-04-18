@@ -11,7 +11,9 @@ import {toSignal} from '@angular/core/rxjs-interop';
     </p>
     <p>
       query params : {{ age() }}
-
+    </p>
+    <p>
+      fragment : {{ fragment() }}
     </p>
   `,
   styles: ``
@@ -23,6 +25,9 @@ export class TestIdComponent {
 
   queryParams = toSignal(this.activatedRoute.queryParams);
   age = computed(() => this.queryParams()?.['age']);
+
+  fragment = toSignal(this.activatedRoute.fragment);
+
 
   constructor() {
     effect(() => {
