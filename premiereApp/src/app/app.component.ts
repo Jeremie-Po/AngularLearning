@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, effect, inject} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {DymaComponent} from './dyma/dyma.component';
 import {DymaSFCComponent} from './dyma-sfc.component';
@@ -27,6 +27,7 @@ import {CurrencyDatePipesComponent} from './pipes/currency-date-pipes.component'
 import {CustomPipesComponent} from './pipes/custom-pipes.component';
 import {HomePageComponent} from './views/home-page.component';
 import {UsersComponent} from './views/users/users.component';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-root',
@@ -68,6 +69,13 @@ import {UsersComponent} from './views/users/users.component';
 export class AppComponent {
   title = 'proot';
   private router = inject(Router);
+
+  private events = toSignal(this.router.events);
+
+  constructor() {
+    effect(() =>
+      console.log('events', this.events()))
+  }
 
   navigateToUser() {
     this.router.navigate(['users'], {
