@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-test-activated-route',
-  imports: [],
+  imports: [
+    RouterOutlet
+  ],
   template: `
     <p>
       test Activated Route
@@ -13,6 +15,8 @@ import {Router} from '@angular/router';
         <li (click)="naviguerVersComposant(test.id)">{{ test.name }}</li>
       }
     </ul>
+
+    <router-outlet/>
 
   `,
   styles: ``

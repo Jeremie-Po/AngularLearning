@@ -49,7 +49,14 @@ export const routes: Routes = [
   {
     path: 'tests',
     canActivate: [authGuard],
+    canActivateChild: [authGuard],
     component: TestActivatedRouteComponent,
+    children: [
+      {
+        path: ':id',
+        component: TestIdComponent,
+      }
+    ]
   },
 
 
