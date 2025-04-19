@@ -73,12 +73,12 @@ export class AppComponent {
   private events = toSignal(this.router.events);
 
   constructor() {
-    effect(() =>
-      console.log('events', this.events()))
-    
-    this.router.events.subscribe((event) => {
-      console.log('from Observable', event);
-    })
+    // effect(() =>
+    //   console.log('events', this.events()))
+    //
+    // this.router.events.subscribe((event) => {
+    //   console.log('from Observable', event);
+    // })
   }
 
   navigateToUser() {

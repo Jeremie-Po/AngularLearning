@@ -5,6 +5,7 @@ import {NotFoundComponent} from './views/not-found.component';
 import {UserComponent} from './views/users/views/user.component';
 import {TestActivatedRouteComponent} from './views/testActivatedRoute/test-activated-route.component';
 import {TestIdComponent} from './views/testActivatedRoute/view/test-id.component';
+import {authGuard} from './shared/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -47,6 +48,7 @@ export const routes: Routes = [
 
   {
     path: 'tests',
+    canActivate: [authGuard],
     component: TestActivatedRouteComponent,
   },
 
@@ -60,6 +62,11 @@ export const routes: Routes = [
   {
     path: '',
     component: HomePageComponent,
+  },
+
+  {
+    path: 'forbidden',
+    component: NotFoundComponent,
   },
 
   {

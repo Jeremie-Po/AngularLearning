@@ -44,9 +44,9 @@ export class TestIdComponent {
   data = toSignal(this.activatedRoute.data);
 
   constructor() {
-    effect(() => {
-      console.log(this.activatedRoute);
-      console.log(this.queryParams());
-    })
+    // effect(() => {
+    //   console.log(this.activatedRoute);
+    //   console.log(this.queryParams());
+    // })
   }
 }
