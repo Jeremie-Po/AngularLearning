@@ -3,6 +3,14 @@ import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {JsonPipe} from '@angular/common';
 import {toSignal} from '@angular/core/rxjs-interop';
 
+interface UserForm {
+  lastName: FormControl<string>,
+  firstName: FormControl<string>,
+  email: FormControl<string>,
+  password: FormControl<string>,
+  secret?: FormControl<string>
+};
+
 @Component({
   selector: 'app-form',
   imports: [ReactiveFormsModule, JsonPipe],
@@ -24,6 +32,12 @@ import {toSignal} from '@angular/core/rxjs-interop';
         <label for="password">Mot de passe</label>
         <input formControlName="password" type="password" id="password">
       </div>
+      @if (userForm.contains('secret')) {
+        <div class="flex flex-col mb-20">
+          <label for="secret">Secret</label>
+          <input formControlName="secret" type="text" id="secret">
+        </div>
+      }
       <button class="btn btn-primary">Sauvegarder</button>
 
     </form>
@@ -41,7 +55,7 @@ import {toSignal} from '@angular/core/rxjs-interop';
     }`
 })
 export class FormComponent {
-  userForm = new FormGroup({
+  userForm = new FormGroup<UserForm>({
     lastName: new FormControl('', {nonNullable: true}),
     firstName: new FormControl('', {nonNullable: true}),
     email: new FormControl('', {nonNullable: true}),
@@ -55,7 +69,14 @@ export class FormComponent {
   statusChanges = toSignal(this.userForm.statusChanges);
 
   eventsEff = effect(() => {
-    console.log(this.events());
+    console.log(this.valueChanges());
+    const value = this.valueChanges()!;
+    const secretControl = this.userForm.contains('secret')
+    if (value?.firstName === 'secret' && !secretControl) {
+      this.userForm.addControl('secret', new FormControl('secret', {nonNullable: true}))
+    } else if (value?.firstName !== 'secret' && secretControl) {
+      this.userForm.removeControl('secret');
+    }
   })
 
 
