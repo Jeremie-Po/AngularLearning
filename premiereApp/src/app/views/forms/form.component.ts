@@ -1,5 +1,5 @@
 import {Component, effect} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {JsonPipe} from '@angular/common';
 import {toSignal} from '@angular/core/rxjs-interop';
 
@@ -19,29 +19,36 @@ interface UserForm {
       <div class="flex flex-col mb-10">
         <label for="lastName">Nom</label>
         <input formControlName="lastName" type="text" id="lastName">
-      </div>
-      <div class="flex flex-col mb-10">
-        <label for="firstName">Prénom</label>
-        <input formControlName="firstName" type="text" id="firstName">
-      </div>
-      <div class="flex flex-col mb-10">
-        <label for="email">Email</label>
-        <input formControlName="email" type="text" id="email">
-      </div>
-      <div class="flex flex-col mb-20">
-        <label for="password">Mot de passe</label>
-        <input formControlName="password" type="password" id="password">
-      </div>
-      @if (userForm.contains('secret')) {
-        <div class="flex flex-col mb-20">
-          <label for="secret">Secret</label>
-          <input formControlName="secret" type="text" id="secret">
-        </div>
-      }
-      <button class="btn btn-primary">Sauvegarder</button>
+        @let lastNameError = userForm.get('lastName')?.errors;
+        @if (lastNameError?.['required']) {
+          < p class = "error" > Le champ est obligatoire < / p >
+        } @else if (lastNameError?.['minlength']) {
+          < p class = "error" > Le champ doit faire 4 char < / p >
 
-    </form>
-    <pre class="w-half">{{ userForm.value | json }}</pre>
+        }
+      </div>
+      < div class = "flex flex-col mb-10" >
+      < label for = "firstName" > Prénom < / label >
+      < input formControlName = "firstName" type = "text" id = "firstName" >
+      < / div >
+      < div class = "flex flex-col mb-10" >
+      < label for = "email" > Email < / label >
+      < input formControlName = "email" type = "text" id = "email" >
+      < / div >
+      < div class = "flex flex-col mb-20" >
+      < label for = "password" > Mot de passe < / label >
+      < input formControlName = "password" type = "password" id = "password" >
+      < / div >
+      @if (userForm.contains('secret')) {
+        < div class = "flex flex-col mb-20" >
+          < label for = "secret" > Secret < / label >
+          < input formControlName = "secret" type = "text" id = "secret" >
+          < / div >
+      }
+      <button class="btn btn-primary"> Sauvegarder < / button >
+
+        < / form >
+        < pre class = "w-half" > {{ userForm.value | json }}</pre >
   `,
   styles: `
     :host {
@@ -55,53 +62,57 @@ interface UserForm {
     }`
 })
 export class FormComponent {
-  userForm = new FormGroup<UserForm>({
-    lastName: new FormControl('', {nonNullable: true}),
+  userForm = new FormGroup({
+    lastName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+    ]),
     firstName: new FormControl('', {nonNullable: true}),
     email: new FormControl('', {nonNullable: true}),
     password: new FormControl('', {nonNullable: true})
   })
 
-  events = toSignal(this.userForm.events);
+  // events = toSignal(this.userForm.events);
   // suivre els evenemnt lié à une value
-  valueChanges = toSignal(this.userForm.valueChanges);
+  // valueChanges = toSignal(this.userForm.valueChanges);
   // suivre les evenement liés à un status
-  statusChanges = toSignal(this.userForm.statusChanges);
+  // statusChangs = toSignal(this.userForm.statusChanges);
 
   eventsEff = effect(() => {
-    console.log(this.valueChanges());
-    const value = this.valueChanges()!;
-    const secretControl = this.userForm.contains('secret')
-    if (value?.firstName === 'secret' && !secretControl) {
-      this.userForm.addControl('secret', new FormControl('secret', {nonNullable: true}))
-    } else if (value?.firstName !== 'secret' && secretControl) {
-      this.userForm.removeControl('secret');
-    }
+    console.log(this.userForm);
+    //   console.log(this.valueChanges());
+    //   const value = this.valueChanges()!;
+    //   const secretControl = this.userForm.contains('secret')
+    //   if (value?.firstName === 'secret' && !secretControl) {
+    //     this.userForm.addControl('secret', new FormControl('secret', {nonNullable: true}))
+    //   } else if (value?.firstName !== 'secret' && secretControl) {
+    //     this.userForm.removeControl('secret');
+    //   }
   })
 
 
-  ngOnInit() {
-    const firstNameControl = this.userForm.get('firstName')
-    console.log('iciii', firstNameControl);
-    firstNameControl?.disable();
-  }
+  // ngOnInit() {
+  //   const firstNameControl = this.userForm.get('firstName')
+  //   console.log('iciii', firstNameControl);
+  //   firstNameControl?.disable();
+  // }
 
   submit() {
-    console.log(this.userForm.value);
-    console.log(this.userForm.getRawValue());
-    // désactive tous les champs
-    this.userForm.disable();
-    setTimeout(() => {
-      // acitve les chamops sous 3 sec
-      this.userForm.enable();
-      // patch une value
-      this.userForm.patchValue({
-        email: 'jean@live.fr',
-      })
-    }, 3000)
-    setTimeout(() => {
-
-      this.userForm.reset();
-    }, 5000)
+    // console.log(this.userForm.value);
+    // console.log(this.userForm.getRawValue());
+    // // désactive tous les champs
+    // this.userForm.disable();
+    // setTimeout(() => {
+    //   // acitve les chamops sous 3 sec
+    //   this.userForm.enable();
+    //   // patch une value
+    //   this.userForm.patchValue({
+    //     email: 'jean@live.fr',
+    //   })
+    // }, 3000)
+    // setTimeout(() => {
+    //
+    //   this.userForm.reset();
+    // }, 5000)
   }
 }
