@@ -1,10 +1,13 @@
-import {Component} from '@angular/core';
-import {Router, RouterOutlet} from '@angular/router';
+import {Component, computed, inject} from '@angular/core';
+import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
+import {toSignal} from '@angular/core/rxjs-interop';
+import {JsonPipe} from '@angular/common';
 
 @Component({
   selector: 'app-test-activated-route',
   imports: [
-    RouterOutlet
+    RouterOutlet,
+    JsonPipe
   ],
   template: `
     <p>
@@ -15,7 +18,8 @@ import {Router, RouterOutlet} from '@angular/router';
         <li (click)="naviguerVersComposant(test.id)">{{ test.name }}</li>
       }
     </ul>
-
+    <pre>{{ data() | json }}</pre>
+    <strong> {{ answer() }}</strong>
     <router-outlet/>
 
   `,
@@ -25,6 +29,10 @@ export class TestActivatedRouteComponent {
   constructor(private router: Router) {
   }
 
+  activatedRoute = inject(ActivatedRoute);
+
+  data = toSignal(this.activatedRoute.data);
+  answer = computed(() => this.data()?.['answer'])
   tests = [
     {
       id: '1',
