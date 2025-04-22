@@ -1,5 +1,5 @@
 import {Component, effect} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {JsonPipe} from '@angular/common';
 import {toSignal} from '@angular/core/rxjs-interop';
 
@@ -9,7 +9,18 @@ interface UserForm {
   email: FormControl<string>,
   password: FormControl<string>,
   secret?: FormControl<string>
-};
+}
+
+function notPaul(control: AbstractControl): { [s: string]: boolean } | null {
+  const value = control.value;
+  if (value === 'paul') {
+    return {
+      paul: true,
+    }
+  } else {
+    return null;
+  }
+}
 
 @Component({
   selector: 'app-form',
@@ -29,6 +40,11 @@ interface UserForm {
       <div class="flex flex-col mb-10">
         <label for="firstName"> Prénom </label>
         <input formControlName="firstName" type="text" id="firstName">
+
+        @let firstNameError = userForm.get('firstName')?.errors;
+        @if (firstNameError?.['paul']) {
+          <p class="error"> Pas de paul</p>
+        }
       </div>
       <div class="flex flex-col mb-10">
         <label for="email"> Email </label>
@@ -66,7 +82,7 @@ export class FormComponent {
       Validators.required,
       Validators.minLength(4),
     ]),
-    firstName: new FormControl('', {nonNullable: true}),
+    firstName: new FormControl('', notPaul),
     email: new FormControl('', {nonNullable: true}),
     password: new FormControl('', {nonNullable: true})
   })
@@ -114,4 +130,6 @@ export class FormComponent {
     //   this.userForm.reset();
     // }, 5000)
   }
+
+
 }
