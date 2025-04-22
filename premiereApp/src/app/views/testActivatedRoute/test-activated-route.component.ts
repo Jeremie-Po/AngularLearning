@@ -57,4 +57,8 @@ export class TestActivatedRouteComponent {
 
     })
   }
+
+  canDeactivate() {
+    return false;
+  }
 }

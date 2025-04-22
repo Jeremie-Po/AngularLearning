@@ -7,6 +7,7 @@ import {TestActivatedRouteComponent} from './views/testActivatedRoute/test-activ
 import {TestIdComponent} from './views/testActivatedRoute/view/test-id.component';
 import {authGuard} from './shared/guards/auth.guard';
 import {answerResolver} from './shared/resolvers/answer.resolver';
+import {formProtectionGuard} from './shared/guards/form-protection.guard';
 
 export const routes: Routes = [
   {
@@ -51,6 +52,7 @@ export const routes: Routes = [
     path: 'tests',
     // canActivate: [authGuard],
     // canActivateChild: [authGuard],
+    canDeactivate: [formProtectionGuard],
     component: TestActivatedRouteComponent,
     resolve: {
       answer: answerResolver,
