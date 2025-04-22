@@ -8,6 +8,7 @@ import {TestIdComponent} from './views/testActivatedRoute/view/test-id.component
 import {authGuard} from './shared/guards/auth.guard';
 import {answerResolver} from './shared/resolvers/answer.resolver';
 import {formProtectionGuard} from './shared/guards/form-protection.guard';
+import {FormComponent} from './views/forms/form.component';
 
 export const routes: Routes = [
   {
@@ -52,7 +53,7 @@ export const routes: Routes = [
     path: 'tests',
     // canActivate: [authGuard],
     // canActivateChild: [authGuard],
-    canDeactivate: [formProtectionGuard],
+    // canDeactivate: [formProtectionGuard],
     component: TestActivatedRouteComponent,
     resolve: {
       answer: answerResolver,
@@ -70,6 +71,11 @@ export const routes: Routes = [
     path: 'toto',
     // redirect permet de rediriger l'url vers une autre'
     redirectTo: 'users',
+  },
+
+  {
+    path: 'form',
+    component: FormComponent,
   },
 
   {
