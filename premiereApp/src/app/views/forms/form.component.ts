@@ -42,10 +42,10 @@ async function fiftyPercents(control: AbstractControl): Promise<{ [s: string]: b
       <div class="flex flex-col mb-10">
         <label for="lastName">Nom</label>
         <input formControlName="lastName" type="text" id="lastName">
-        @let lastNameError = userForm.get('lastName')?.errors;
-        @if (lastNameError?.['required']) {
+        @let lastNameError = userForm.get('lastName')!;
+        @if (lastNameError.hasError('required') && lastNameError.touched) {
           <p class="error"> Le champ est obligatoire </p>
-        } @else if (lastNameError?.['minlength']) {
+        } @else if (lastNameError.hasError('minlength') && lastNameError.touched) {
           <p class="error"> Le champ doit faire 4 char </p>
         }
       </div>
