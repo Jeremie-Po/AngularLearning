@@ -1298,3 +1298,77 @@ selectedTodoIdResource = resource({
   set (value) : definit la valeur manuellement
   clear() : réinitialise la ressource à l'état Idle en supprimant et en arretant les chargements en cours
   update ((value)=>{})
+
+### Formulaires
+
+* formulaire de base :
+
+```
+import {Component} from '@angular/core';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {JsonPipe} from '@angular/common';
+
+@Component({
+  selector: 'app-form',
+  imports: [ReactiveFormsModule, JsonPipe],
+  template: `
+    <form class="w-half" [formGroup]="userForm" (submit)="submit()">
+      <div class="flex flex-col mb-10">
+        <label for="lastName">Nom</label>
+        <input formControlName="lastName" type="text" id="lastName">
+      </div>
+      <div class="flex flex-col mb-10">
+        <label for="firstname">Prénom</label>
+        <input formControlName="firstName" type="text" id="firstname">
+      </div>
+      <div class="flex flex-col mb-10">
+        <label for="email">Email</label>
+        <input formControlName="email" type="text" id="email">
+      </div>
+      <div class="flex flex-col mb-20">
+        <label for="password">Mot de passe</label>
+        <input formControlName="password" type="password" id="password">
+      </div>
+      <button class="btn btn-primary">Sauvegarder</button>
+
+    </form>
+    <pre class="w-half">{{ userForm.value | json }}</pre>
+  `,
+  styles: `
+    :host {
+      display: flex;
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+      padding: 24px;
+      gap: 25px;
+      a/*border: 1px solid green;*/
+    }`
+})
+export class xxxxx {
+  userForm = new FormGroup({
+    lastName: new FormControl(''),
+    firstName: new FormControl(''),
+    email: new FormControl(''),
+    password: new FormControl('')
+  })
+
+  submit() {
+    console.log(this.userForm);
+
+  }
+}
+
+```
+
+* pour récuperer une valeur
+
+```
+    console.log(this.userForm.value);
+    
+    ou 
+    
+    console.log(this.userForm.getrawValue());
+
+
+  ```

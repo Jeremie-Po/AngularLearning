@@ -12,8 +12,8 @@ import {JsonPipe} from '@angular/common';
         <input formControlName="lastName" type="text" id="lastName">
       </div>
       <div class="flex flex-col mb-10">
-        <label for="firstname">Prénom</label>
-        <input formControlName="firstName" type="text" id="firstname">
+        <label for="firstName">Prénom</label>
+        <input formControlName="firstName" type="text" id="firstName">
       </div>
       <div class="flex flex-col mb-10">
         <label for="email">Email</label>
@@ -47,7 +47,28 @@ export class FormComponent {
     password: new FormControl('')
   })
 
+  ngOnInit() {
+    const firstNameControl = this.userForm.get('firstName')
+    console.log('iciii', firstNameControl);
+    firstNameControl?.disable();
+  }
+
   submit() {
     console.log(this.userForm.value);
+    console.log(this.userForm.getRawValue());
+    // désactive tous les champs
+    this.userForm.disable();
+    setTimeout(() => {
+      // acitve les chamops sous 3 sec
+      this.userForm.enable();
+      // patch une value
+      this.userForm.patchValue({
+        email: 'jean@live.fr',
+      })
+    }, 3000)
+    setTimeout(() => {
+
+      this.userForm.reset();
+    }, 5000)
   }
 }
