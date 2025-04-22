@@ -49,6 +49,11 @@ export class FormComponent {
   })
 
   events = toSignal(this.userForm.events);
+  // suivre els evenemnt lié à une value
+  valueChanges = toSignal(this.userForm.valueChanges);
+  // suivre les evenement liés à un status
+  statusChanges = toSignal(this.userForm.statusChanges);
+
   eventsEff = effect(() => {
     console.log(this.events());
   })
