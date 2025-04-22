@@ -21,34 +21,33 @@ interface UserForm {
         <input formControlName="lastName" type="text" id="lastName">
         @let lastNameError = userForm.get('lastName')?.errors;
         @if (lastNameError?.['required']) {
-          < p class = "error" > Le champ est obligatoire < / p >
+          <p class="error"> Le champ est obligatoire </p>
         } @else if (lastNameError?.['minlength']) {
-          < p class = "error" > Le champ doit faire 4 char < / p >
-
+          <p class="error"> Le champ doit faire 4 char </p>
         }
       </div>
-      < div class = "flex flex-col mb-10" >
-      < label for = "firstName" > Prénom < / label >
-      < input formControlName = "firstName" type = "text" id = "firstName" >
-      < / div >
-      < div class = "flex flex-col mb-10" >
-      < label for = "email" > Email < / label >
-      < input formControlName = "email" type = "text" id = "email" >
-      < / div >
-      < div class = "flex flex-col mb-20" >
-      < label for = "password" > Mot de passe < / label >
-      < input formControlName = "password" type = "password" id = "password" >
-      < / div >
-      @if (userForm.contains('secret')) {
-        < div class = "flex flex-col mb-20" >
-          < label for = "secret" > Secret < / label >
-          < input formControlName = "secret" type = "text" id = "secret" >
-          < / div >
-      }
-      <button class="btn btn-primary"> Sauvegarder < / button >
+      <div class="flex flex-col mb-10">
+        <label for="firstName"> Prénom </label>
+        <input formControlName="firstName" type="text" id="firstName">
+      </div>
+      <div class="flex flex-col mb-10">
+        <label for="email"> Email </label>
+        <input formControlName="email" type="text" id="email">
+      </div>
+      <div class="flex flex-col mb-20">
+        <label for="password"> Mot de passe </label>
+        <input formControlName="password" type="password" id="password">
+      </div>
+      <!--      @if (userForm.contains('secret')) {-->
+      <!--        < div class = "flex flex-col mb-20" >-->
+      <!--          < label for = "secret" > Secret < / label >-->
+      <!--          < input formControlName = "secret" type = "text" id = "secret" >-->
+      <!--          < / div >-->
+      <!--      }-->
+      <button class="btn btn-primary"> Sauvegarder</button>
 
-        < / form >
-        < pre class = "w-half" > {{ userForm.value | json }}</pre >
+    </form>
+    <pre class="w-half"> {{ userForm.value | json }}</pre>
   `,
   styles: `
     :host {
