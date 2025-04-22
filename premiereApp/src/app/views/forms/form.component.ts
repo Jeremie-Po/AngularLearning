@@ -22,6 +22,18 @@ function notPaul(control: AbstractControl): { [s: string]: boolean } | null {
   }
 }
 
+async function fiftyPercents(control: AbstractControl): Promise<{ [s: string]: boolean } | null> {
+  const {answer} = await (await fetch('https://yesno.wtf/api')).json();
+  if (answer === 'yes') {
+    return null;
+  } else {
+    return {
+      fifty: true
+    }
+  }
+
+}
+
 @Component({
   selector: 'app-form',
   imports: [ReactiveFormsModule, JsonPipe],
@@ -44,6 +56,8 @@ function notPaul(control: AbstractControl): { [s: string]: boolean } | null {
         @let firstNameError = userForm.get('firstName')?.errors;
         @if (firstNameError?.['paul']) {
           <p class="error"> Pas de paul</p>
+        } @else if (firstNameError?.['fifty']) {
+          <p class="error"> c'est non ! </p>
         }
       </div>
       <div class="flex flex-col mb-10">
@@ -82,7 +96,7 @@ export class FormComponent {
       Validators.required,
       Validators.minLength(4),
     ]),
-    firstName: new FormControl('', notPaul),
+    firstName: new FormControl('', notPaul, fiftyPercents),
     email: new FormControl('', {nonNullable: true}),
     password: new FormControl('', {nonNullable: true})
   })
