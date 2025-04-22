@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, effect} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {JsonPipe} from '@angular/common';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-form',
@@ -46,6 +47,12 @@ export class FormComponent {
     email: new FormControl('', {nonNullable: true}),
     password: new FormControl('', {nonNullable: true})
   })
+
+  events = toSignal(this.userForm.events);
+  eventsEff = effect(() => {
+    console.log(this.events());
+  })
+
 
   ngOnInit() {
     const firstNameControl = this.userForm.get('firstName')
