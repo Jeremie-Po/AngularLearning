@@ -41,10 +41,10 @@ import {JsonPipe} from '@angular/common';
 })
 export class FormComponent {
   userForm = new FormGroup({
-    lastName: new FormControl(''),
-    firstName: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl('')
+    lastName: new FormControl('', {nonNullable: true}),
+    firstName: new FormControl('', {nonNullable: true}),
+    email: new FormControl('', {nonNullable: true}),
+    password: new FormControl('', {nonNullable: true})
   })
 
   ngOnInit() {
