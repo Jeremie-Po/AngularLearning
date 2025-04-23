@@ -84,8 +84,13 @@ async function fiftyPercents(control: AbstractControl): Promise<{ [s: string]: b
         <label>Hobbies</label>
         <button (click)=addHobby() class="mb-10 btn btn-primary"> Ajouter un hobby</button>
         @for (hobby of hobbies.controls; track $index) {
-          <div class=" flex gap-16 mb-10">
-            <input class="flex-auto " type="text" [formControlName]="$index">
+          <div class=" flex gap-16 mb-10" [formGroupName]="$index">
+            <input class="flex-auto " type="text" formControlName="name">
+            <select formControlName="skill">
+              <option value="noob">Débutant</option>
+              <option value="average">Moyen</option>
+              <option value="Pro">Fort</option>
+            </select>
             <button (click)="deleteHobby($index)" class="btn btn-danger">Delete</button>
           </div>
         }
@@ -124,7 +129,10 @@ export class FormComponent {
   }
 
   addHobby() {
-    this.hobbies.push(new FormControl(''));
+    this.hobbies.push(new FormGroup({
+      name: new FormControl(''),
+      skill: new FormControl(''),
+    }));
 
     // permet de prendre le controle sur un index
     // this.hobbies.at()
