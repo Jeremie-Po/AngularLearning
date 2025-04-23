@@ -1,5 +1,5 @@
 import {Component, effect} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {JsonPipe} from '@angular/common';
 import {toSignal} from '@angular/core/rxjs-interop';
 
@@ -54,9 +54,9 @@ async function fiftyPercents(control: AbstractControl): Promise<{ [s: string]: b
         <input formControlName="firstName" type="text" id="firstName">
 
         @let firstNameError = userForm.get('firstName')?.errors;
-        @if (firstNameError?.['paul']) {
+        @if (firstNameError?.['paul'] && lastNameError.touched) {
           <p class="error"> Pas de paul</p>
-        } @else if (firstNameError?.['fifty']) {
+        } @else if (firstNameError?.['fifty'] && lastNameError.touched) {
           <p class="error"> c'est non ! </p>
         }
       </div>
@@ -80,8 +80,17 @@ async function fiftyPercents(control: AbstractControl): Promise<{ [s: string]: b
       <!--          < input formControlName = "secret" type = "text" id = "secret" >-->
       <!--          < / div >-->
       <!--      }-->
+      <div formArrayName="hobbies" class="flex flex-col mb-20">
+        <label>Hobbies</label>
+        <button (click)=addHobby() class="mb-10 btn btn-primary"> Ajouter un hobby</button>
+        @for (hobby of hobbies.controls; track $index) {
+          <div class=" flex gap-16 mb-10">
+            <input class="flex-auto " type="text" [formControlName]="$index">
+            <button (click)="deleteHobby($index)" class="btn btn-danger">Delete</button>
+          </div>
+        }
+      </div>
       <button class="btn btn-primary"> Sauvegarder</button>
-
     </form>
     <pre class="w-half"> {{ userForm.value | json }}</pre>
   `,
@@ -106,8 +115,25 @@ export class FormComponent {
     local: new FormGroup({
       email: new FormControl('', Validators.email),
       password: new FormControl('', {nonNullable: true})
-    })
+    }),
+    hobbies: new FormArray([]),
   })
+
+  get hobbies() {
+    return this.userForm.get('hobbies') as FormArray;
+  }
+
+  addHobby() {
+    this.hobbies.push(new FormControl(''));
+
+    // permet de prendre le controle sur un index
+    // this.hobbies.at()
+  }
+
+  deleteHobby(index: number) {
+    this.hobbies.removeAt(index);
+
+  }
 
   // events = toSignal(this.userForm.events);
   // suivre els evenemnt lié à une value
