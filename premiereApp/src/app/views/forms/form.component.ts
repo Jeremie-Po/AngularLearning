@@ -60,14 +60,20 @@ async function fiftyPercents(control: AbstractControl): Promise<{ [s: string]: b
           <p class="error"> c'est non ! </p>
         }
       </div>
-      <div class="flex flex-col mb-10">
-        <label for="email"> Email </label>
-        <input formControlName="email" type="text" id="email">
-      </div>
-      <div class="flex flex-col mb-20">
-        <label for="password"> Mot de passe </label>
-        <input formControlName="password" type="password" id="password">
-      </div>
+      <ng-container formGroupName="local">
+        <div class="flex flex-col mb-10">
+          <label for="email"> Email </label>
+          <input formControlName="email" type="text" id="email">
+          @let email = userForm.get('local.email')!;
+          @if (email.errors?.['email']) {
+            <p class="error">il faut un email valide</p>
+          }
+        </div>
+        <div class="flex flex-col mb-20">
+          <label for="password"> Mot de passe </label>
+          <input formControlName="password" type="password" id="password">
+        </div>
+      </ng-container>
       <!--      @if (userForm.contains('secret')) {-->
       <!--        < div class = "flex flex-col mb-20" >-->
       <!--          < label for = "secret" > Secret < / label >-->
@@ -97,8 +103,10 @@ export class FormComponent {
       Validators.minLength(4),
     ]),
     firstName: new FormControl('', notPaul, fiftyPercents),
-    email: new FormControl('', {nonNullable: true}),
-    password: new FormControl('', {nonNullable: true})
+    local: new FormGroup({
+      email: new FormControl('', Validators.email),
+      password: new FormControl('', {nonNullable: true})
+    })
   })
 
   // events = toSignal(this.userForm.events);
