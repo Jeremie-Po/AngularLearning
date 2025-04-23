@@ -1,5 +1,13 @@
-import {Component, effect} from '@angular/core';
-import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Component, effect, inject} from '@angular/core';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import {JsonPipe} from '@angular/common';
 import {toSignal} from '@angular/core/rxjs-interop';
 
@@ -111,17 +119,19 @@ async function fiftyPercents(control: AbstractControl): Promise<{ [s: string]: b
     }`
 })
 export class FormComponent {
-  userForm = new FormGroup({
-    lastName: new FormControl('', [
+  fb = inject(FormBuilder);
+
+  userForm = this.fb.group({
+    lastName: ['', [
       Validators.required,
       Validators.minLength(4),
-    ]),
-    firstName: new FormControl('', notPaul, fiftyPercents),
-    local: new FormGroup({
+    ]],
+    firstName: ['', notPaul, fiftyPercents],
+    local: [{
       email: new FormControl('', Validators.email),
       password: new FormControl('', {nonNullable: true})
-    }),
-    hobbies: new FormArray([]),
+    }],
+    hobbies: this.fb.array([]),
   })
 
   get hobbies() {
@@ -129,10 +139,10 @@ export class FormComponent {
   }
 
   addHobby() {
-    this.hobbies.push(new FormGroup({
-      name: new FormControl(''),
-      skill: new FormControl(''),
-    }));
+    this.fb.group({
+      name: [''],
+      skill: [''],
+    });
 
     // permet de prendre le controle sur un index
     // this.hobbies.at()
